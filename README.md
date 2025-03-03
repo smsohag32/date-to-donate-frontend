@@ -1,8 +1,29 @@
-# React + Vite
+# Dare to Donate
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+Dare to Donate is a web application designed to connect blood donors with recipients. Users can search for donors using filters, register as new donors, and request blood donations efficiently.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+
+-  **Find Donors**: Search for blood donors using various filters.
+-  **Register as a Donor**: Users can register themselves to become blood donors.
+-  **Request Blood**: Users in need of blood can request donations.
+-  **User Dashboard**: Manage donor profiles and blood requests.
+
+## Tech Stack
+
+-  **Frontend**: HTML, CSS, JavaScript, React.js
+-  **Backend**: Node.js, Express.js
+-  **Database**: MongoDB
+-  **Authentication**: JWT (JSON Web Token)
+
+## Usage
+
+-  Users can register as donors and provide their blood type and location.
+-  Search and filter donors by blood type and location.
+-  Request blood from available donors.
+
+## License
+
+This project is licensed under the MIT License.

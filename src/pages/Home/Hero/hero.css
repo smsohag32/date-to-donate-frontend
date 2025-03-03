@@ -1,17 +1,22 @@
 .hero .swiper {
    width: 100%;
-   /* height: calc(100vh - 80px); */
+   min-height: calc(100vh - 80px);
+   height: 100%;
    /* height: calc(100vh - 80px); */
 }
 
 .hero .swiper-slide {
    font-size: 18px;
    background: #fff;
+   width: 100%;
+   min-height: calc(100vh - 80px);
+   height: 100%;
 }
 
 .hero .swiper-slide img {
    display: block;
    width: 100%;
+   min-height: calc(100vh - 80px);
    height: 100%;
    object-fit: cover;
 }

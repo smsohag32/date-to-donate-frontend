@@ -45,13 +45,13 @@ const Hero = () => {
          >
             {heroContent.map((item) => (
                <SwiperSlide key={item.id}>
-                  <div className="relative  w-full">
-                     <img src={item.image || "/placeholder.svg"} alt={item.title} className="" />
+                  <div className="relative h-full   w-full">
+                     <img src={item.image || "/placeholder.svg"} alt={item.title} className="w-full h-full" />
                      <div className="absolute inset-0 bg-black/60 bg-opacity-50 flex items-center justify-center">
                         <div className="text-center text-white px-4 sm:px-6 lg:px-8">
-                           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">{item.title}</h1>
-                           <p className="text-xl sm:text-2xl mb-8">{item.description}</p>
-                           <div className="flex flex-col sm:flex-row justify-center gap-4">
+                           <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold mb-4">{item.title}</h1>
+                           <p className="text-base sm:text-2xl mb-8">{item.description}</p>
+                           <div className="flex flex-col lg:items-start items-center sm:flex-row justify-center gap-4">
                               <Link to="/register" className="primary-btn w-auto  items-center max-w-[250px]  justify-center flex">
                                  <Heart className="mr-2 h-5 w-5" /> Register now
                               </Link>
