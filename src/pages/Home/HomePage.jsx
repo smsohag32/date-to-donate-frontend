@@ -8,6 +8,7 @@ const HomePage = () => {
          <Hero />
          <Featured />
          <DonorSection />
+         
       </div>
    );
 };
