@@ -62,7 +62,7 @@ const Register = () => {
 
    return (
       <div className="min-h-screen py-16 main-container">
-         <div className="bg-[#FFFFFF] w-full px-7 pb-14 pt-8 max-w-[480px] flex mx-auto flex-col gap-4 rounded-[10px] shadow-lg">
+         <div className="bg-[#FFFFFF] w-full px-7 pb-14 pt-8  max-w-3xl  flex mx-auto flex-col gap-4 rounded-[10px] shadow-lg">
             <div className="font-bold text-lg mb-8 text-center">
                <NavLink to="/" className="flex flex-col gap-2 items-center mt-3">
                   <LogoRegular className="w-10" />
@@ -74,7 +74,7 @@ const Register = () => {
             </div>
 
             <Form {...form}>
-               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 grid grid-cols-1 lg:grid-cols-2">
                   {["first_name", "last_name", "email", "phone", "password"].map((item) => (
                      <FormField
                         key={item}
@@ -138,7 +138,7 @@ const Register = () => {
                                  </div>
                                  <FormControl>
                                     <Input
-                                       placeholder={field.name.toUpperCase()} // ❌ This is likely the problem
+                                       placeholder={field.name.toUpperCase()} // 
                                        className="border-0 py-5 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
                                        {...field}
                                     />
