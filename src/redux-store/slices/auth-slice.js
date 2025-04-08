@@ -44,6 +44,7 @@ const authSlice = createSlice({
             state.error = null;
          })
          .addCase(loginUser.fulfilled, (state, action) => {
+            console.log("Login successful:", action.payload);
             const { token, user } = action.payload;
             state.isLoading = false;
             state.token = token;

@@ -6,15 +6,15 @@ const userApi = apiSlice.injectEndpoints({
          query: ({ id }) => ({
             url: `/users/${id}`,
          }),
-         providesTags: ["user"],
+         providesTags: ["users"],
       }),
       registerUser: builder.mutation({
          query: (newUser) => ({
-            url: `/auth/register`,
+            url: `/auth/sign-up`,
             method: "POST",
             body: newUser,
          }),
-         providesTags: ["user"],
+         providesTags: ["users"],
       }),
    }),
 });

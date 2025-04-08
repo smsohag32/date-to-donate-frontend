@@ -4,9 +4,12 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const loginApi = async (credential) => {
    try {
-      const response = await axios.post(`${BASE_URL}/auth/signin`, credential);
+      // Make the API request
+      const response = await axios.post(`${BASE_URL}/api/v1/auth/sign-in`, credential);
       return response;
    } catch (err) {
-      throw new Error(err?.response?.data);
+      // Ensure a proper message is thrown
+      const message = err?.response?.data?.message || "An unexpected error occurred during login.";
+      throw new Error(message); // Throw error with message
    }
 };

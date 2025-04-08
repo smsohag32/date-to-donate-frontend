@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQueryWithAuth = async (args, api, extraOptions) => {
    const baseQuery = fetchBaseQuery({
-      baseUrl: import.meta.env.VITE_BASE_URL,
+      baseUrl: `${import.meta.env.VITE_BASE_URL}/api/v1`,
       prepareHeaders: (headers) => {
          const token = CookieManager.getCookie("access_token");
          if (token) {

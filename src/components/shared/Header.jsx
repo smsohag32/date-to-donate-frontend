@@ -5,32 +5,38 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Logo from "@/assets/logo/Logo";
 import { motion } from "framer-motion";
+import useAuth from "@/hooks/useAuth";
+import UserAvatar from "../avater/UserAvatar";
 
 const navItems = [
    { path: "/", label: "Home" },
-   { path: "/about", label: "About" },
    { path: "/find-donor", label: "Find Donor" },
    { path: "/contact-us", label: "Contact" },
+   { path: "/about", label: "About" },
 ];
 
 const Header = () => {
+   const { user } = useAuth()
    const navigate = useNavigate();
    return (
       <header className="sticky bg-[#FF2156] top-0 z-50 w-full">
          <div className="main-container flex h-16 items-center justify-between">
-            <NavLink to="/" className="flex items-center space-x-2">
-               <Logo className="w-5" />
-               <span className="text-[#f1eaea] tracking-tighter font-medium text-lg">
-                  Dare to Donate
-               </span>
-            </NavLink>
+            <div className="flex items-center gap-6 w-full lg:w-auto">
+               <MobileNav />
+               <NavLink to="/" className="flex items-center space-x-2">
+                  <Logo className="w-5" />
+                  <span className="text-[#f1eaea] tracking-tighter font-medium text-lg">
+                     Dare to Donate
+                  </span>
+               </NavLink>
+            </div>
+            { }
             <div className="flex items-center gap-10">
                <DesktopNav />
-               <MobileNav />
-               <div className="hidden md:block">
-                  <button onClick={() => navigate("/login")} className="secondary-btn">
+               <div className="">
+                  {user ? <UserAvatar /> : <button onClick={() => navigate("/login")} className="secondary-btn !text-xs md:text-sm whitespace-nowrap">
                      LOG IN
-                  </button>
+                  </button>}
                </div>
             </div>
          </div>
@@ -70,39 +76,45 @@ function DesktopNav() {
 
 function MobileNav() {
    const [isOpen, setIsOpen] = useState(false);
-
+   const { user } = useAuth()
    const closeSheet = () => setIsOpen(false);
 
    return (
-      <Sheet open={isOpen} onOpenChange={setIsOpen}>
-         <SheetTrigger asChild>
-            <Button
-               variant="outline"
-               className="px-0  cursor-pointer text-base   md:hidden"
-               onClick={() => setIsOpen(true)}
-            >
-               <Menu className="h-6 w-6" />
-               <span className="sr-only">Toggle Menu</span>
-            </Button>
-         </SheetTrigger>
-         <SheetContent side="left" className="bg-[#FF2156]/80 px-6 pb-6 pt-4">
-            <NavLink to="/" className="flex items-center space-x-2" onClick={closeSheet}>
-               <Logo className="w-5" />
-               <span className="text-[#f1eaea] tracking-tighter font-medium text-lg">
-                  Dare to Donate
-               </span>
-            </NavLink>
 
-            <nav className="flex flex-col space-y-2 mt-4">
-               {navItems.map((item) => (
-                  <NavItem key={item.path} item={item} onClick={closeSheet} />
-               ))}
-               <Link to="/login" className="secondary-btn flex items-center justify-center mt-10" onClick={closeSheet}>
-                  LOG IN
-               </Link>
-            </nav>
-         </SheetContent>
-      </Sheet>
+      <>
+
+         <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild>
+               <Button
+                  variant="outline"
+                  className="px-0  cursor-pointer text-base   md:hidden"
+                  onClick={() => setIsOpen(true)}
+               >
+                  <Menu className="h-6 w-6" />
+                  <span className="sr-only">Toggle Menu</span>
+               </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="bg-[#FF2156]/80 px-6 pb-6 pt-4">
+               <NavLink to="/" className="flex items-center space-x-2" onClick={closeSheet}>
+                  <Logo className="w-5" />
+                  <span className="text-[#f1eaea] tracking-tighter font-medium text-lg">
+                     Dare to Donate
+                  </span>
+               </NavLink>
+
+               <nav className="flex flex-col space-y-2 mt-4">
+                  {navItems.map((item) => (
+                     <NavItem key={item.path} item={item} onClick={closeSheet} />
+                  ))}
+
+                  {user ? <></> : <Link to="/login" className="secondary-btn flex items-center justify-center mt-10" onClick={closeSheet}>
+                     LOG IN
+                  </Link>}
+
+               </nav>
+            </SheetContent>
+         </Sheet>
+      </>
    );
 }
 
