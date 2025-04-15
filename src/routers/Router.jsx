@@ -5,6 +5,7 @@ import Register from "@/pages/Auth/Register/Register"
 import Contact from "@/pages/Contact/Contact"
 import FindDonor from "@/pages/FindDonor/FindDonor"
 import HomePage from "@/pages/Home/HomePage"
+import NotFound from "@/pages/NotFound/NotFound"
 import Profile from "@/pages/User/Profile/Profile"
 import { createBrowserRouter } from "react-router-dom"
 
@@ -42,5 +43,9 @@ export const router = createBrowserRouter([
             element: <Profile />
          }
       ]
+   },
+   {
+      path: "*",
+      element: <NotFound />
    }
 ])

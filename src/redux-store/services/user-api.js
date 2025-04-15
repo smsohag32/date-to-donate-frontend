@@ -10,7 +10,7 @@ const userApi = apiSlice.injectEndpoints({
       }),
       getUserById: builder.query({
          query: ({ id }) => ({
-            url: `/users/${id}`,
+            url: `/user/${id}`,
          }),
          providesTags: ["users"],
       }),
@@ -25,4 +25,4 @@ const userApi = apiSlice.injectEndpoints({
    }),
 });
 
-export const { useGetUserQuery, useRegisterUserMutation } = userApi;
+export const { useGetUserQuery, useRegisterUserMutation, useGetUserByIdQuery } = userApi;

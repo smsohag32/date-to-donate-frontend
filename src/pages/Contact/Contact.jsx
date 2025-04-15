@@ -1,4 +1,3 @@
-import AppBanner from "../Home/Banner/AppBanner"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -152,18 +151,6 @@ export default function Contact() {
             </div>
          </section>
 
-         {/* Map Section */}
-         <section className="py-16 md:py-24 bg-gray-50">
-            <div className="main-container">
-               <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Find Us on the Map</h2>
-               <div className="h-[400px] bg-gray-200 rounded-lg overflow-hidden">
-                  {/* Replace with actual map implementation */}
-                  <div className="w-full h-full flex items-center justify-center bg-gray-300">
-                     <p className="text-gray-600">Map will be displayed here</p>
-                  </div>
-               </div>
-            </div>
-         </section>
 
          {/* CTA Section */}
          <section className="py-16 md:py-24 bg-[#FF2156] text-[#ffffff]">
@@ -178,7 +165,6 @@ export default function Contact() {
                </div>
             </div>
          </section>
-         <AppBanner />
       </div>
    )
 }
