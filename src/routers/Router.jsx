@@ -5,6 +5,7 @@ import Register from "@/pages/Auth/Register/Register"
 import Contact from "@/pages/Contact/Contact"
 import FindDonor from "@/pages/FindDonor/FindDonor"
 import HomePage from "@/pages/Home/HomePage"
+import Profile from "@/pages/User/Profile/Profile"
 import { createBrowserRouter } from "react-router-dom"
 
 export const router = createBrowserRouter([
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
          {
             path: "/register",
             element: <Register />
+         },
+         {
+            path: "/profile",
+            element: <Profile />
          }
       ]
    }

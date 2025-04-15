@@ -4,7 +4,7 @@ import playStoreImage from "@/assets/banner/play-store.webp"
 const AppBanner = () => {
    return (
       <div className="pb-24  pt-28  ">
-         <div className="main-container z-30  relative rounded-2xl  p-8 bg-gradient-to-br from-[#FF2156] to-[#FF2156] w-full min-h-[400px] flex items-center justify-center">
+         <div className="main-container z-30  relative rounded-2xl  p-8 bg-gradient-to-br from-[#FF2156] to-[#FF2156] w-full h-full min-h-[400px] flex items-center justify-center">
             {/* Background pattern for visual interest */}
             <div className="absolute inset-0  opacity-10">
                <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-rose-400"></div>
@@ -13,7 +13,7 @@ const AppBanner = () => {
 
             <div className="flex flex-col md:flex-row items-center w-full gap-8 z-10">
                <div className="md:w-1/2 flex justify-center md:justify-center">
-                  <div className="absolute inset-0 -top-10 z-20">
+                  <div className="absolute hidden lg:block inset-0 -top-10 z-20">
                      {/* <div className="absolute inset-0 bg-white/20 rounded-3xl blur-xl transform -translate-y-4 translate-x-4"></div> */}
                      <img
                         src={appScreenshot || "/placeholder.svg"}
@@ -44,7 +44,7 @@ const AppBanner = () => {
                </div>
             </div>
 
-            <div className="bg-[#FFFFFF] absolute -bottom-5 -right-5 z-10 flex items-center justify-center p-3 rounded-full cursor-pointer">
+            <div className="bg-[#FFFFFF]  absolute -bottom-5 -right-5 z-10 flex items-center justify-center p-3 rounded-full cursor-pointer">
                <img src={playStoreImage || "/placeholder.svg"} alt="Google Play Store" className="w-[100px]" />
             </div>
          </div>

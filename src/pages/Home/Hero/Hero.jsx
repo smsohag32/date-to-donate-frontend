@@ -1,120 +1,115 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
-import { useRef } from "react";
-import { Link } from "react-router-dom";
-import { Heart, Users } from 'lucide-react';
+"use client"
 
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import "./hero.css";
+import { Link } from "react-router-dom"
+import { Heart, Users } from "lucide-react"
 
-import heroContent from "@/data/hero-content";
-
+import heroContent from "@/data/hero-content"
+import "./hero.css"
 const Hero = () => {
-   const progressCircle = useRef(null);
-   const progressContent = useRef(null);
-
-
-   const onAutoplayTimeLeft = (s, time, progress) => {
-      progressCircle.current.style.setProperty("--progress", 1 - progress);
-      progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
-   };
+   const item = heroContent[0]
 
    return (
-      <div className="hero">
-         <Swiper
-            style={{
-               "--swiper-pagination-color": "#FF2156",
-               "--swiper-pagination-bullet-inactive-color": "#999999",
-               "--swiper-pagination-bullet-inactive-opacity": "1",
-               "--swiper-pagination-bullet-size": "16px",
-               "--swiper-pagination-bullet-horizontal-gap": "6px"
-            }}
-            spaceBetween={30}
-            centeredSlides={true}
-            autoplay={{
-               delay: 5500,
-               disableOnInteraction: false,
-            }}
-            pagination={{
-               clickable: true,
-            }}
-            modules={[Autoplay, Pagination]}
-            onAutoplayTimeLeft={onAutoplayTimeLeft}
-            className="mySwiper"
-         >
-            {heroContent.map((item) => (
-               <SwiperSlide key={item.id}>
-                  <div className="relative h-full w-full overflow-hidden">
+      <div className="hero relative overflow-hidden ">
+         <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,rgba(255,255,255,0.5),rgba(255,255,255,0.8))] dark:bg-grid-slate-700/25"></div>
+
+         <div className="relative h-full w-full py-16 md:py-24 lg:py-12">
+            <div className="main-container">
+               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                  <div className="space-y-8 max-w-2xl">
                      <div
-                        data-aos="zoom-out"
-                        data-aos-duration="1500"
-                        className="w-full h-full"
+                        className="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-sm font-medium text-slate-700 shadow-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                        data-aos="fade-down"
+                        data-aos-duration="800"
                      >
-                        <img
-                           src={item.image || "/placeholder.svg"}
-                           alt={item.title}
-                           className="w-full h-full object-cover transform scale-105 transition-transform duration-10000 hover:scale-100"
-                        />
+                        <span className="flex h-2 w-2 rounded-full bg-red-500 mr-2"></span>
+                        <span>Save Lives Today</span>
                      </div>
-                     <div className="absolute inset-0 bg-black/60 bg-opacity-50 flex items-center justify-center">
-                        <div className="text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl">
-                           <h1
-                              data-aos="fade-down"
-                              data-aos-duration="1000"
-                              data-aos-delay="300"
-                              className="text-2xl md:text-5xl lg:text-6xl font-semibold mb-4"
-                           >
-                              {item.title}
-                           </h1>
-                           <p
-                              data-aos="fade-up"
-                              data-aos-duration="1000"
-                              data-aos-delay="600"
-                              className="text-base sm:text-2xl mb-8"
-                           >
-                              {item.description}
-                           </p>
-                           <div className="flex flex-col lg:items-start items-center sm:flex-row justify-center gap-4">
-                              <Link
-                                 to="/register"
-                                 data-aos="fade-right"
-                                 data-aos-delay="900"
-                                 data-aos-duration="1000"
-                                 className="primary-btn w-auto py-4  text-base items-center max-w-[250px] justify-center flex hover:scale-105 transition-transform"
+
+                     <h1
+                        data-aos="fade-up"
+                        data-aos-duration="1000"
+                        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 dark:text-white"
+                     >
+                        {item.title}
+                     </h1>
+
+                     <p
+                        data-aos="fade-up"
+                        data-aos-duration="1000"
+                        data-aos-delay="200"
+                        className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed"
+                     >
+                        {item.description}
+                     </p>
+
+                     <div
+                        className="flex flex-col sm:flex-row gap-4 pt-4"
+                        data-aos="fade-up"
+                        data-aos-duration="1000"
+                        data-aos-delay="400"
+                     >
+                        <Link
+                           to="/register"
+                           className="inline-flex h-12 items-center justify-center rounded-lg bg-red-600 px-6 text-base font-medium text-white shadow-lg transition-all hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800 group"
+                        >
+                           <Heart className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
+                           Register now
+                        </Link>
+                        <Link
+                           to="/find-donor"
+                           className="inline-flex h-12 items-center justify-center rounded-lg border border-slate-300 bg-white px-6 text-base font-medium text-slate-900 shadow-sm transition-all hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700 dark:focus:ring-offset-slate-800 group"
+                        >
+                           <Users className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
+                           Find Donor
+                        </Link>
+                     </div>
+
+                     <div
+                        className="flex items-center gap-4 pt-4"
+                        data-aos="fade-up"
+                        data-aos-duration="1000"
+                        data-aos-delay="600"
+                     >
+                        <div className="flex -space-x-2">
+                           {[1, 2, 3, 4].map((i) => (
+                              <div
+                                 key={i}
+                                 className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-slate-800 overflow-hidden"
                               >
-                                 <Heart className="mr-2 h-5 w-5 animate-pulse" /> Register now
-                              </Link>
-                              <Link
-                                 to="/find-donor"
-                                 data-aos="fade-left"
-                                 data-aos-delay="1100"
-                                 data-aos-duration="1000"
-                                 className="secondary-btn w-auto py-4 text-base  flex max-w-[250px] justify-center items-center hover:scale-105 transition-transform"
-                              >
-                                 <Users className="mr-2 h-5 w-5 animate-pulse" /> Find Donor
-                              </Link>
-                           </div>
+                                 <img
+                                    src={`https://api.dicebear.com/7.x/personas/svg?seed=donor${i}`}
+                                    alt={`Donor ${i}`}
+                                    className="h-full w-full object-cover"
+                                 />
+                              </div>
+                           ))}
                         </div>
+
+                        <p className="text-sm text-slate-600 dark:text-slate-400">
+                           <span className="font-semibold text-slate-900 dark:text-white">2,500+</span> donors have joined
+                        </p>
                      </div>
                   </div>
-               </SwiperSlide>
-            ))}
-            <div
-               className="autoplay-progress"
-               slot="container-end"
-               data-aos="fade-in"
-               data-aos-duration="1000"
-            >
-               <svg viewBox="0 0 48 48" ref={progressCircle}>
-                  <circle cx="24" cy="24" r="20"></circle>
-               </svg>
-               <span ref={progressContent}></span>
-            </div>
-         </Swiper>
-      </div>
-   );
-};
 
-export default Hero;
+                  <div
+                     className="relative flex items-center justify-center"
+                     data-aos="zoom-in"
+                     data-aos-duration="1200"
+                  >
+                     <div className="absolute inset-0 bg-gradient-radial from-red-100 to-transparent dark:from-red-900/20 dark:to-transparent opacity-70 rounded-full blur-3xl"></div>
+                     <div className="relative p-4">
+                        <img
+                           src={item.image || "/placeholder.svg?height=500&width=500"}
+                           alt={item.title}
+                           className="relative z-10 max-h-[500px] w-auto object-contain drop-shadow-2xl transition-all duration-700 hover:scale-105"
+                        />
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   )
+}
+
+export default Hero

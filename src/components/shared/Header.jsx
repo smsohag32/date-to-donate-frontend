@@ -23,9 +23,9 @@ const Header = () => {
          <div className="main-container flex h-16 items-center justify-between">
             <div className="flex items-center gap-6 w-full lg:w-auto">
                <MobileNav />
-               <NavLink to="/" className="flex items-center space-x-2">
-                  <Logo className="w-5" />
-                  <span className="text-[#f1eaea] tracking-tighter font-medium text-lg">
+               <NavLink to="/" className="flex items-center space-x-3">
+                  <Logo className="w-4" />
+                  <span className="text-[#f1eaea]  font-semibold text-lg">
                      Dare to Donate
                   </span>
                </NavLink>

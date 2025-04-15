@@ -8,6 +8,12 @@ const userApi = apiSlice.injectEndpoints({
          }),
          providesTags: ["users"],
       }),
+      getUserById: builder.query({
+         query: ({ id }) => ({
+            url: `/users/${id}`,
+         }),
+         providesTags: ["users"],
+      }),
       registerUser: builder.mutation({
          query: (newUser) => ({
             url: `/auth/sign-up`,
