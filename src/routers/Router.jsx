@@ -8,6 +8,8 @@ import HomePage from "@/pages/Home/HomePage"
 import NotFound from "@/pages/NotFound/NotFound"
 import Profile from "@/pages/User/Profile/Profile"
 import { createBrowserRouter } from "react-router-dom"
+import SecureRoute from "./SecureRoute"
+import DonorDetails from "@/pages/DonorDetails/DonorDetails"
 
 export const router = createBrowserRouter([
    {
@@ -21,6 +23,12 @@ export const router = createBrowserRouter([
          {
             path: "/find-donor",
             element: <FindDonor />
+         },
+         {
+            path: "/donors/:donorId",
+            element: <SecureRoute userRoles={["user"]}>
+               <DonorDetails />
+            </SecureRoute>
          },
          {
             path: "/contact-us",
@@ -40,7 +48,9 @@ export const router = createBrowserRouter([
          },
          {
             path: "/profile",
-            element: <Profile />
+            element: <SecureRoute userRoles={["user"]}>
+               <Profile />
+            </SecureRoute>
          }
       ]
    },

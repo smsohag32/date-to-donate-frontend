@@ -65,7 +65,7 @@ export default function About() {
    }
 
    return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-white overflow-hidden">
          {/* Hero Section */}
          <section className="relative py-16 md:py-24 bg-gradient-to-r from-red-50 to-red-100">
             <div className="main-container">

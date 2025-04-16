@@ -9,11 +9,12 @@ import "aos/dist/aos.css"
 // import lineImage from "@/assets/bg/line.webp"
 import filterImage from "@/assets/icon/filter.png"
 import DonorCard from "@/components/cards/DonorCard"
-import LoadingDonorCard from "@/components/skeleton/donor-loading-skeleton"
 import { useGetDonorsQuery } from "@/redux-store/services/donor-api"
 import { Slider } from "@/components/ui/slider"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
+import Loading from "@/components/skeleton/Loading"
+import EmptyState from "@/components/Empty/Empty"
 
 const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
 
@@ -27,17 +28,13 @@ const DonorSection = () => {
    const [isRegularDonor, setIsRegularDonor] = useState(false)
    const [showBloodGroupDropdown, setShowBloodGroupDropdown] = useState(false)
 
-   const { data, isLoading } = useGetDonorsQuery({
+   const { data, isLoading, isFetching } = useGetDonorsQuery({
       page: 1,
       limit: 10,
       blood_group: selectedBloodGroup,
       searchText: searchText,
-      // Additional filter parameters would be added here
    })
 
-   const loadingSkeletons = Array(3)
-      .fill(0)
-      .map((_, index) => <LoadingDonorCard key={`skeleton-${index}`} />)
 
    // Initialize AOS
    useEffect(() => {
@@ -99,7 +96,7 @@ const DonorSection = () => {
    }
 
    return (
-      <div className="relative overflow-hidden py-16 bg-opacity-5 backdrop-opacity-50 rounded-[8px] backdrop-blur-sm shadow-sm shadow-rose-50 bg-rose-300/10 min-h-[730px]">
+      <div className="relative overflow-hidden pb-12 bg-opacity-5 backdrop-opacity-50 rounded-[8px] backdrop-blur-sm shadow-sm shadow-rose-50 bg-rose-300/10 min-h-[730px]">
          <motion.div
             className="main-container relative z-40 py-8 px-5 lg:px-16"
             initial="hidden"
@@ -107,13 +104,6 @@ const DonorSection = () => {
             variants={containerVariants}
             data-aos="fade-up"
          >
-            <motion.div className="flex flex-col items-center justify-center" variants={itemVariants}>
-               <h4 className="text-[24px] font-semibold">Find A Donor</h4>
-               <p className="text-lg text-[#7E7E7E] font-normal max-w-xl mx-auto w-full text-center mt-3">
-                  Search and connect with suitable blood donors across various blood types and availability.
-               </p>
-
-            </motion.div>
 
             <motion.div className="flex items-center gap-4 mt-6 justify-center" variants={itemVariants}>
                <motion.div
@@ -299,24 +289,30 @@ const DonorSection = () => {
                )}
             </AnimatePresence>
 
-            <motion.div
-               className="grid mt-20 relative lg:grid-cols-3 z-50 gap-10 md:grid-cols-3 grid-cols-1"
-               variants={containerVariants}
-            >
-               {isLoading
-                  ? loadingSkeletons
-                  : data?.data?.donors?.map((donor, index) => (
-                     <motion.div
-                        key={index}
-                        variants={itemVariants}
-                        custom={index}
-                        data-aos="zoom-in"
-                        data-aos-delay={index * 100}
-                     >
-                        <DonorCard donor={donor} />
-                     </motion.div>
-                  ))}
-            </motion.div>
+            {isLoading || isFetching
+               ? <Loading />
+               : data?.data?.donors?.length > 0 ?
+                  <motion.div
+                     className="grid mt-20 relative lg:grid-cols-3 z-50 gap-10 md:grid-cols-3 grid-cols-1"
+                     variants={containerVariants}
+                  >
+                     {data?.data?.donors?.length > 0 && data?.data?.donors?.map((donor, index) => (
+                        <motion.div
+                           key={index}
+                           variants={itemVariants}
+                           custom={index}
+                           data-aos="zoom-in"
+                           data-aos-delay={index * 100}
+                        >
+                           <DonorCard donor={donor} />
+                        </motion.div>
+                     ))
+                     }
+                  </motion.div> : <EmptyState
+                     title="No Donors Found"
+                     description="We couldn't find any donors at the moment. Please check back later or try refining your search."
+                  />}
+
          </motion.div>
 
          {/* <div className="w-full absolute !z-5 bottom-1/3 left-0 right-0">

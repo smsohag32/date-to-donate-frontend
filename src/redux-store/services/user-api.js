@@ -22,7 +22,20 @@ const userApi = apiSlice.injectEndpoints({
          }),
          providesTags: ["users"],
       }),
+      updateUser: builder.mutation({
+         query: ({ id, formData }) => ({
+            url: `/user/${id}`,
+            method: "PUT",
+            body: formData,
+         }),
+         invalidatesTags: ["users"],
+      }),
    }),
 });
 
-export const { useGetUserQuery, useRegisterUserMutation, useGetUserByIdQuery } = userApi;
+export const {
+   useGetUserQuery,
+   useRegisterUserMutation,
+   useGetUserByIdQuery,
+   useUpdateUserMutation,
+} = userApi;

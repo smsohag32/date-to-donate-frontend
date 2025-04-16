@@ -17,9 +17,6 @@ const FindDonor = () => {
                      Connect with compassionate donors in your area who are ready to help. Every donation makes a difference.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4">
-                     <Button size="lg" className="bg-red-600 hover:bg-red-700">
-                        Find a Donor Now
-                     </Button>
                      <Button size="lg" variant="outline" className="border-red-600 text-red-600 hover:bg-red-50">
                         Learn How It Works
                      </Button>

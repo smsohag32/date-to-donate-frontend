@@ -1,6 +1,6 @@
 "use client"
 
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin, Heart } from "lucide-react"
+import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Link, NavLink } from "react-router-dom"
@@ -20,7 +20,6 @@ const Footer = () => {
             >
                <div className="mb-4 md:mb-0">
                   <h3 className="text-xl font-bold text-red-700 flex items-center">
-                     <Heart className="mr-2 h-5 w-5 fill-red-500 text-red-500" />
                      Join Our Lifesaving Community
                   </h3>
                   <p className="text-gray-600 mt-1">

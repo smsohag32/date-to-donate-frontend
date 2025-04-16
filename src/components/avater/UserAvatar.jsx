@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { LogOut, User, Settings, Bell } from "lucide-react"
+import { LogOut, User, Settings } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -42,7 +42,9 @@ const UserAvatar = () => {
          console.error("Logout failed:", error)
       }
    }
-   console.log(user, "user data")
+
+
+
    return (
       <div className="flex items-center gap-2">
          <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
