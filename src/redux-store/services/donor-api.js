@@ -1,6 +1,6 @@
 import { apiSlice } from "../slices/api-slice";
 
-const userApi = apiSlice.injectEndpoints({
+const donorApi = apiSlice.injectEndpoints({
    endpoints: (builder) => ({
       getDonors: builder.query({
          query: ({ page, limit, blood_group, searchText }) => ({
@@ -12,9 +12,9 @@ const userApi = apiSlice.injectEndpoints({
                searchText: searchText || "",
             },
          }),
-         providesTags: ["user"],
+         providesTags: ["donors"],
       }),
    }),
 });
 
-export const { useGetDonorsQuery } = userApi;
+export const { useGetDonorsQuery } = donorApi;

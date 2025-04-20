@@ -22,7 +22,7 @@ const Login = () => {
    const [isLoading, setIsLoading] = useState(false)
    const dispatch = useDispatch()
    const navigate = useNavigate()
-   const from = location.state?.from?.pathname || "/"
+   const from = location.state?.from?.pathname || "/dashboard"
    const form = useForm({
       resolver: zodResolver(formSchema),
       defaultValues: {

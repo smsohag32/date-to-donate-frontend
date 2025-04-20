@@ -9,7 +9,10 @@ import NotFound from "@/pages/NotFound/NotFound"
 import Profile from "@/pages/User/Profile/Profile"
 import { createBrowserRouter } from "react-router-dom"
 import SecureRoute from "./SecureRoute"
-import DonorDetails from "@/pages/DonorDetails/DonorDetails"
+import UserDashboardLayout from "@/components/layouts/UserLayout/UserDashboardLayout"
+import UserFindDonors from "@/pages/User/FindDonors/UserFindDonors"
+import DonorProfile from "@/pages/User/DonorProfile/DonorProfile"
+import DummyUser from "@/pages/DummyUser/DummyUser"
 
 export const router = createBrowserRouter([
    {
@@ -24,12 +27,7 @@ export const router = createBrowserRouter([
             path: "/find-donor",
             element: <FindDonor />
          },
-         {
-            path: "/donors/:donorId",
-            element: <SecureRoute userRoles={["user"]}>
-               <DonorDetails />
-            </SecureRoute>
-         },
+
          {
             path: "/contact-us",
             element: <Contact />
@@ -51,9 +49,41 @@ export const router = createBrowserRouter([
             element: <SecureRoute userRoles={["user"]}>
                <Profile />
             </SecureRoute>
+         },
+         {
+            path: "/dummy-user-add",
+            element: <DummyUser />
          }
       ]
    },
+
+   {
+      path: "/dashboard",
+      element: <UserDashboardLayout />,
+      children: [
+         {
+            path: "/dashboard",
+            element: <Profile />
+         },
+         {
+            path: "/dashboard/profile",
+            element: <Profile />
+         },
+         {
+            path: "/dashboard/find-donors",
+            element: <UserFindDonors />
+         },
+         {
+            path: "/dashboard/find-donors/:donorId",
+            element: <SecureRoute userRoles={["user"]}>
+               <DonorProfile />
+            </SecureRoute>
+         },
+
+      ]
+   },
+
+
    {
       path: "*",
       element: <NotFound />

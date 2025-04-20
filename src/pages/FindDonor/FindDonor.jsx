@@ -4,20 +4,22 @@ import DonorSection from "../Home/DonorSection/DonorSection"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { UserRound, HeartHandshake, Award, Users } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 const FindDonor = () => {
+   const navigate = useNavigate()
    return (
       <div className="min-h-screen bg-white overflow-hidden">
          {/* Hero Section */}
-         <section className="relative py-20 bg-gradient-to-r from-red-50 to-red-100">
+         <section className="relative pt-16 backdrop-blur-sm shadow-sm shadow-rose-50 bg-rose-300/10">
             <div className="main-container">
                <div className="flex flex-col items-center text-center max-w-3xl mx-auto space-y-6">
-                  <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900">Find a Donor, Save a Life</h1>
+                  <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-800">Find a Donor, Save a Life</h1>
                   <p className="text-lg md:text-xl text-gray-600 max-w-2xl">
                      Connect with compassionate donors in your area who are ready to help. Every donation makes a difference.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4">
-                     <Button size="lg" variant="outline" className="border-red-600 text-red-600 hover:bg-red-50">
+                     <Button onClick={() => navigate("/about")} size="lg" variant="outline" className="border-red-600 text-red-600 hover:bg-red-50">
                         Learn How It Works
                      </Button>
                   </div>

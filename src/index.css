@@ -32,7 +32,7 @@
    --chart-4: oklch(0.828 0.189 84.429);
    --chart-5: oklch(0.769 0.188 70.08);
    --radius: 0.625rem;
-   --sidebar: oklch(0.985 0 0);
+   --sidebar: #ffffff;
    --sidebar-foreground: oklch(0.145 0 0);
    --sidebar-primary: oklch(0.205 0 0);
    --sidebar-primary-foreground: oklch(0.985 0 0);
@@ -136,7 +136,19 @@
    .main-container {
       @apply max-w-[1280px] w-full mx-auto px-5;
    }
-   .secondary-bg{
-      @apply bg-[#FFE6EC]
+   .secondary-bg {
+      @apply bg-[#FFE6EC];
+   }
+}
+
+@layer base {
+   * {
+      @apply border-border outline-ring/50;
+   }
+   body {
+      @apply bg-background text-foreground;
+   }
+   button {
+      @apply cursor-pointer;
    }
 }

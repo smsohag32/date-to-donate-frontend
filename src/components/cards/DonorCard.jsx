@@ -1,19 +1,19 @@
-"use client"
 
 import { motion } from "framer-motion"
-import { MapPin, Phone, Info } from 'lucide-react'
+import { MapPin, Info } from 'lucide-react'
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
 import bloodIcon from "@/assets/icon/blood.png"
 import { Link } from "react-router-dom"
+import CallNowButton from "../buttons/CallNowButton"
 
 const DonorCard = ({ donor }) => {
-   console.log(donor)
+
    return (
       <motion.div whileHover={{ y: -10 }} transition={{ type: "spring", stiffness: 300, damping: 15 }}>
          <Card
-            className="relative w-full bg-[#FFFFFF] py-8 px-5 flex flex-col items-center border-none rounded-[8px]"
+            className="relative w-full bg-[#FFFFFF] py-8 px-5 gap-2 flex flex-col items-center border-none rounded-[8px]"
             style={{ boxShadow: "0px 0px 30px 0px #4242421A" }}
          >
             <motion.div
@@ -46,7 +46,7 @@ const DonorCard = ({ donor }) => {
                </div>
             </motion.div>
             <motion.div
-               className="rounded-lg overflow-hidden w-[152px] h-[152px] mb-4"
+               className="rounded-lg overflow-hidden -mt-16 bg-slate-200 w-[152px] h-[152px] mb-4"
                initial={{ opacity: 0, scale: 0.8 }}
                animate={{ opacity: 1, scale: 1 }}
                transition={{ duration: 0.5 }}
@@ -73,7 +73,7 @@ const DonorCard = ({ donor }) => {
             </motion.h2>
 
             <motion.div
-               className="flex items-center text-gray-500 mb-4"
+               className="flex items-center text-gray-500"
                initial={{ opacity: 0, y: 10 }}
                animate={{ opacity: 1, y: 0 }}
                transition={{ delay: 0.4 }}
@@ -82,8 +82,8 @@ const DonorCard = ({ donor }) => {
                <span>{typeof donor?.address === "string" && donor?.address ? donor.address : "N/A"}</span>
             </motion.div>
 
-            <div className="flex gap-2 w-full mt-2">
-               <Link to={`/donors/${donor?._id}`} className="flex-1">
+            <div className="flex gap-2 w-full mt-3">
+               <Link to={`/dashboard/find-donors/${String(donor?.user_id?._id)}`} className="w-full">
                   <Button
                      variant="outline"
                      className="w-full border-gray-300 hover:bg-gray-50 hover:text-gray-900 transition-all"
@@ -93,14 +93,7 @@ const DonorCard = ({ donor }) => {
                   </Button>
                </Link>
 
-               <a href={`tel:${donor?.phone}`} className="flex-1">
-                  <Button
-                     className="w-full bg-red-500 hover:bg-red-600 text-white transition-all"
-                  >
-                     <Phone className="w-4 h-4 mr-2" />
-                     Call Now
-                  </Button>
-               </a>
+               <CallNowButton phone={donor?.phone} />
             </div>
          </Card>
       </motion.div>

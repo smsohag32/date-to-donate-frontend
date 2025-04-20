@@ -6,8 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { CalendarIcon, DropletIcon, PhoneIcon, MailIcon, EditIcon, UserIcon, ClockIcon } from "lucide-react"
+import { CalendarIcon, DropletIcon, PhoneIcon, MailIcon, EditIcon, ClockIcon } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import Loading from "@/components/skeleton/Loading"
 import EditProfileForm from "./EditProfile"
@@ -16,10 +15,9 @@ import { toast } from "sonner"
 const Profile = () => {
    const { user } = useAuth()
    const { data: userDetails, isLoading } = useGetUserByIdQuery({ id: user?._id })
-   const [activeTab, setActiveTab] = useState("overview")
    const [showEditForm, setShowEditForm] = useState(false)
    const navigate = useNavigate()
-   const [updateUser, { isLoading: editLoading }] = useUpdateUserMutation()
+   const [updateUser] = useUpdateUserMutation()
    // Format date to readable format
    const formatDate = (dateString) => {
       if (!dateString) return "No record"
@@ -71,11 +69,11 @@ const Profile = () => {
    }
 
    return (
-      <div className="main-container">
+      <div className="main-container py-8">
          {showEditForm ? (
             <EditProfileForm profile={profile} onSubmit={handleProfileUpdate} onCancel={() => setShowEditForm(false)} />
          ) : (
-            <div className="grid grid-cols-1 py-8 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1  lg:grid-cols-3 gap-6">
                <Card className="lg:col-span-1">
                   <CardHeader className="text-center">
                      <div className="flex flex-col items-center">
@@ -136,146 +134,93 @@ const Profile = () => {
 
                {/* Main Content */}
                <div className="lg:col-span-2">
-                  <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                     <TabsList className="grid w-full grid-cols-2 bg-rose-100">
-                        <TabsTrigger
-                           value="overview"
-                           className="data-[state=active]:bg-rose-400 data-[state=active]:text-white"
-                        >
-                           Overview
-                        </TabsTrigger>
-                        <TabsTrigger
-                           value="donation-history"
-                           className="data-[state=active]:bg-rose-400 data-[state=active]:text-white"
-                        >
-                           Donation History
-                        </TabsTrigger>
-                     </TabsList>
-
-                     <TabsContent value="overview" className="mt-6">
-                        <Card>
-                           <CardHeader>
-                              <CardTitle>Donor Profile</CardTitle>
-                              <CardDescription>Your personal information and donation status</CardDescription>
-                           </CardHeader>
-                           <CardContent>
-                              <div className="space-y-6">
-                                 <div>
-                                    <h3 className="text-lg font-medium mb-3">Personal Information</h3>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                       <div className="space-y-1">
-                                          <p className="text-sm text-gray-500">Full Name</p>
-                                          <p>
-                                             {profile.first_name} {profile.last_name}
-                                          </p>
-                                       </div>
-                                       <div className="space-y-1">
-                                          <p className="text-sm text-gray-500">Blood Group</p>
-                                          <p className="font-semibold text-rose-600">{profile.blood_group}</p>
-                                       </div>
-                                       <div className="space-y-1">
-                                          <p className="text-sm text-gray-500">Phone Number</p>
-                                          <p>{profile.phone}</p>
-                                       </div>
-                                       <div className="space-y-1">
-                                          <p className="text-sm text-gray-500">Email</p>
-                                          <p>{userData.email}</p>
-                                       </div>
-                                       <div className="space-y-1 lg:col-span-2">
-                                          <p className="text-sm text-gray-500">Address</p>
-                                          <p>{profile?.address}</p>
-                                       </div>
-                                    </div>
+                  <Card>
+                     <CardHeader>
+                        <CardTitle>Donor Profile</CardTitle>
+                        <CardDescription>Your personal information and donation status</CardDescription>
+                     </CardHeader>
+                     <CardContent>
+                        <div className="space-y-6">
+                           <div>
+                              <h3 className="text-lg font-medium mb-3">Personal Information</h3>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                 <div className="space-y-1">
+                                    <p className="text-sm text-gray-500">Full Name</p>
+                                    <p>
+                                       {profile.first_name} {profile.last_name}
+                                    </p>
                                  </div>
-
-                                 <div>
-                                    <h3 className="text-lg font-medium mb-3">Donation Status</h3>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                       <div className="space-y-1">
-                                          <p className="text-sm text-gray-500">Availability</p>
-                                          <p>
-                                             {profile.available_donate ? (
-                                                <span className="text-green-600 font-medium">Available to Donate</span>
-                                             ) : (
-                                                <span className="text-gray-600">Currently Unavailable</span>
-                                             )}
-                                          </p>
-                                       </div>
-                                       <div className="space-y-1">
-                                          <p className="text-sm text-gray-500">Last Donation</p>
-                                          <p>{formatDate(profile.last_donation_date)}</p>
-                                       </div>
-                                    </div>
+                                 <div className="space-y-1">
+                                    <p className="text-sm text-gray-500">Blood Group</p>
+                                    <p className="font-semibold text-rose-600">{profile.blood_group}</p>
                                  </div>
-
-                                 <div>
-                                    <h3 className="text-lg font-medium mb-3">Account Information</h3>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                       <div className="space-y-1">
-                                          <p className="text-sm text-gray-500">Account Status</p>
-                                          <p>
-                                             {userData.is_active ? (
-                                                <span className="text-green-600 font-medium">Active</span>
-                                             ) : (
-                                                <span className="text-rose-600">Inactive</span>
-                                             )}
-                                          </p>
-                                       </div>
-                                       <div className="space-y-1">
-                                          <p className="text-sm text-gray-500">Verification Status</p>
-                                          <p>
-                                             {userData.is_verified ? (
-                                                <span className="text-green-600 font-medium">Verified</span>
-                                             ) : (
-                                                <span className="text-amber-600">Not Verified</span>
-                                             )}
-                                          </p>
-                                       </div>
-                                       <div className="space-y-1">
-                                          <p className="text-sm text-gray-500">Member Since</p>
-                                          <p>{formatDate(userData.createdAt)}</p>
-                                       </div>
-                                    </div>
+                                 <div className="space-y-1">
+                                    <p className="text-sm text-gray-500">Phone Number</p>
+                                    <p>{profile.phone}</p>
+                                 </div>
+                                 <div className="space-y-1">
+                                    <p className="text-sm text-gray-500">Email</p>
+                                    <p>{userData.email}</p>
+                                 </div>
+                                 <div className="space-y-1 lg:col-span-2">
+                                    <p className="text-sm text-gray-500">Address</p>
+                                    <p>{profile?.address}</p>
                                  </div>
                               </div>
-                           </CardContent>
-                        </Card>
-                     </TabsContent>
+                           </div>
 
-                     <TabsContent value="donation-history" className="mt-6">
-                        <Card>
-                           <CardHeader>
-                              <CardTitle>Donation History</CardTitle>
-                              <CardDescription>Your blood donation records and history</CardDescription>
-                           </CardHeader>
-                           <CardContent>
-                              {profile.last_donation_date ? (
-                                 <div className="space-y-4">
-                                    <div className="border rounded-lg p-4">
-                                       <div className="flex items-start justify-between">
-                                          <div>
-                                             <h4 className="font-medium">Blood Donation</h4>
-                                             <p className="text-sm text-gray-500">{formatDate(profile.last_donation_date)}</p>
-                                          </div>
-                                          <Badge className="bg-rose-600 hover:bg-rose-700">{profile.blood_group}</Badge>
-                                       </div>
-                                    </div>
+                           <div>
+                              <h3 className="text-lg font-medium mb-3">Donation Status</h3>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                 <div className="space-y-1">
+                                    <p className="text-sm text-gray-500">Availability</p>
+                                    <p>
+                                       {profile.available_donate ? (
+                                          <span className="text-green-600 font-medium">Available to Donate</span>
+                                       ) : (
+                                          <span className="text-gray-600">Currently Unavailable</span>
+                                       )}
+                                    </p>
+                                 </div>
+                                 <div className="space-y-1">
+                                    <p className="text-sm text-gray-500">Last Donation</p>
+                                    <p>{formatDate(profile.last_donation_date)}</p>
+                                 </div>
+                              </div>
+                           </div>
 
-                                    {/* This is a placeholder for future donation records */}
-                                    <p className="text-center text-gray-500 py-4">Previous donation records will appear here</p>
+                           <div>
+                              <h3 className="text-lg font-medium mb-3">Account Information</h3>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                 <div className="space-y-1">
+                                    <p className="text-sm text-gray-500">Account Status</p>
+                                    <p>
+                                       {userData.is_active ? (
+                                          <span className="text-green-600 font-medium">Active</span>
+                                       ) : (
+                                          <span className="text-rose-600">Inactive</span>
+                                       )}
+                                    </p>
                                  </div>
-                              ) : (
-                                 <div className="text-center py-12">
-                                    <UserIcon className="w-12 h-12 mx-auto text-gray-300 mb-4" />
-                                    <h3 className="text-lg font-medium mb-2">No Donation Records</h3>
-                                    <p className="text-gray-500 mb-6">You haven&apos;t recorded any blood donations yet.</p>
-                                    <Button>Record Your First Donation</Button>
+                                 <div className="space-y-1">
+                                    <p className="text-sm text-gray-500">Verification Status</p>
+                                    <p>
+                                       {userData.is_verified ? (
+                                          <span className="text-green-600 font-medium">Verified</span>
+                                       ) : (
+                                          <span className="text-amber-600">Not Verified</span>
+                                       )}
+                                    </p>
                                  </div>
-                              )}
-                           </CardContent>
-                        </Card>
-                     </TabsContent>
-                  </Tabs>
+                                 <div className="space-y-1">
+                                    <p className="text-sm text-gray-500">Member Since</p>
+                                    <p>{formatDate(userData.createdAt)}</p>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </CardContent>
+                  </Card>
                </div>
             </div>
          )}
