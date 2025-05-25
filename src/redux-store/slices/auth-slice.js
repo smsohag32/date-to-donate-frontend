@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { CookieManager } from "@/utils/helpers";
 import { loginApi } from "../services/login-api";
+import { socialLogin } from "../services/social_login";
 
 const getPersistedToken = CookieManager.getCookie("access_token");
 const getPersistedUser = JSON.parse(CookieManager.getCookie("user_info"));
@@ -15,8 +16,20 @@ const initialState = {
 
 export const loginUser = createAsyncThunk(
    "auth/loginUser",
-   async (credentials, { rejectWithValue }) => {
+   async ({ credentials = {}, isSocial = false }, thunkAPI) => {
+      const { rejectWithValue } = thunkAPI;
       try {
+         if (isSocial) {
+            const { email, uId, first_name, photoUrl } = credentials;
+            const response = await socialLogin({
+               email,
+               uId,
+               first_name,
+               photoUrl,
+            });
+            return response?.data;
+         }
+
          const response = await loginApi(credentials);
          return response?.data;
       } catch (error) {

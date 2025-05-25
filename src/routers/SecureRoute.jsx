@@ -19,7 +19,7 @@ const SecureRoute = ({ userRoles, children }) => {
       return children;
    }
    dispatch(logoutUser());
-   return <Navigate to="/login" state={{ from: location }} />;
+   return <Navigate to="/auth/login" state={{ from: location }} />;
 };
 
 export default SecureRoute;

@@ -11,7 +11,7 @@ const CallNowButton = ({ phone }) => {
 
    const handleCallClick = () => {
       if (!user?._id) {
-         navigate("/login", { state: { from: location.pathname } });
+         navigate("/auth/login", { state: { from: location.pathname } });
       } else {
          window.location.href = `tel:${phone}`;
       }

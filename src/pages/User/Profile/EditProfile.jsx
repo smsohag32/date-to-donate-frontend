@@ -23,18 +23,15 @@ const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
 
 const formSchema = z.object({
    first_name: z.string().min(2, "First name must be at least 2 characters"),
-   last_name: z.string().min(2, "Last name must be at least 2 characters"),
    blood_group: z.string().min(1, "Please select a blood group"),
-   phone: z.string().min(10, "Phone number must be at least 10 digits"),
-   address: z.string().min(5, "Address must be at least 5 characters"),
-   last_donation_date: z.date().optional(),
-   profile_image: z.any().optional(),
-})
+
+});
+
 
 export default function EditProfileForm({ profile, onSubmit, onCancel }) {
    const [isSubmitting, setIsSubmitting] = useState(false)
    const [previewImage, setPreviewImage] = useState(profile?.profile_image || null)
-
+   const [file, setFile] = useState(null)
    const form = useForm({
       resolver: zodResolver(formSchema),
       defaultValues: {
@@ -44,7 +41,7 @@ export default function EditProfileForm({ profile, onSubmit, onCancel }) {
          phone: profile?.phone || "",
          address: profile?.address || "",
          last_donation_date: profile?.last_donation_date ? new Date(profile.last_donation_date) : undefined,
-         profile_image: undefined,
+         profile_image: profile.profile_image || undefined,
       },
    })
 
@@ -55,6 +52,7 @@ export default function EditProfileForm({ profile, onSubmit, onCancel }) {
          reader.onloadend = () => {
             setPreviewImage(reader.result)
          }
+         setFile(file)
          reader.readAsDataURL(file)
          form.setValue("profile_image", file)
       }
@@ -63,9 +61,10 @@ export default function EditProfileForm({ profile, onSubmit, onCancel }) {
    const handleSubmit = async (values) => {
       setIsSubmitting(true)
       try {
-         await onSubmit(values)
+         await onSubmit({ ...values, file: file })
       } catch (error) {
          console.error("Error updating profile:", error)
+         
       } finally {
          setIsSubmitting(false)
       }

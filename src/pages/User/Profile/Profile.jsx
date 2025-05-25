@@ -48,13 +48,15 @@ const Profile = () => {
 
    const { profile, user: userData } = userDetails.data
 
+
+
    const handleProfileUpdate = async (modifiedUser) => {
-      // Here you would implement the API call to update the profile
+
       console.log("Updating profile with:", modifiedUser)
-      const { profile_image, ...userInfo } = modifiedUser
+      const { file, ...userInfo } = modifiedUser
       const formData = new FormData()
-      if (profile_image) {
-         formData.append("image", profile_image)
+      if (file) {
+         formData.append("image", file)
       }
       formData.append("content", JSON.stringify(userInfo))
       const response = await updateUser({ id: userData._id, formData }).unwrap()

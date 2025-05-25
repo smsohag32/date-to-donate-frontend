@@ -1,5 +1,6 @@
 import { CookieManager } from "@/utils/helpers";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { logoutUser } from "./auth-slice";
 
 const baseQueryWithAuth = async (args, api, extraOptions) => {
    const baseQuery = fetchBaseQuery({
@@ -14,8 +15,12 @@ const baseQueryWithAuth = async (args, api, extraOptions) => {
    });
 
    let result = await baseQuery(args, api, extraOptions);
-   if (result.error && (result.error.status === 401 || result.error.status === 403)) {
-      window.location.href = "/login";
+   if (
+      result.error &&
+      (result.error.status === 401 || result.error.status === 403 || result.error.status === 404)
+   ) {
+      window.location.href = "/auth/login";
+      api.dispatch(logoutUser());
    }
 
    return result;

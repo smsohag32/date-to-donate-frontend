@@ -34,7 +34,7 @@ const Header = () => {
             <div className="flex items-center gap-10">
                <DesktopNav />
                <div className="">
-                  {user ? <UserAvatar /> : <button onClick={() => navigate("/login")} className="secondary-btn !text-xs md:text-sm whitespace-nowrap">
+                  {user ? <UserAvatar /> : <button onClick={() => navigate("/auth/login")} className="secondary-btn !text-xs md:text-sm whitespace-nowrap">
                      LOG IN
                   </button>}
                </div>
@@ -107,7 +107,7 @@ function MobileNav() {
                      <NavItem key={item.path} item={item} onClick={closeSheet} />
                   ))}
 
-                  {user ? <></> : <Link to="/login" className="secondary-btn flex items-center justify-center mt-10" onClick={closeSheet}>
+                  {user ? <></> : <Link to="/auth/login" className="secondary-btn flex items-center justify-center mt-10" onClick={closeSheet}>
                      LOG IN
                   </Link>}
 

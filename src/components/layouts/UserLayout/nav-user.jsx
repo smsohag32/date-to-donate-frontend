@@ -35,7 +35,7 @@ export function NavUser() {
    const handleLogout = async () => {
       console.log("logging out");
       await dispatch(logoutUser());
-      navigate("/login");
+      navigate("/auth/login");
    };
 
    console.log(user)

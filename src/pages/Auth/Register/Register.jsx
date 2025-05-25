@@ -44,8 +44,7 @@ const Register = () => {
          await registerUser(data).unwrap()
          form.reset()
          toast.success("Registration successful!")
-
-         navigate("/login")
+         navigate("/login/login")
       } catch (error) {
          console.error("Registration failed:", error)
       }
@@ -241,7 +240,7 @@ const Register = () => {
 
                   <div className="mt-6 text-center text-gray-600">
                      Already have an account?{" "}
-                     <Link to="/login" className="text-[#FF2156] font-medium hover:underline transition-colors">
+                     <Link to="/auth/login" className="text-[#FF2156] font-medium hover:underline transition-colors">
                         Sign in
                      </Link>
                   </div>

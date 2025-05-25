@@ -13,6 +13,7 @@ import UserDashboardLayout from "@/components/layouts/UserLayout/UserDashboardLa
 import UserFindDonors from "@/pages/User/FindDonors/UserFindDonors"
 import DonorProfile from "@/pages/User/DonorProfile/DonorProfile"
 import DummyUser from "@/pages/DummyUser/DummyUser"
+import AuthLayout from "@/components/layouts/AuthLayout"
 
 export const router = createBrowserRouter([
    {
@@ -37,14 +38,6 @@ export const router = createBrowserRouter([
             element: <About />
          },
          {
-            path: "/login",
-            element: <Login />
-         },
-         {
-            path: "/register",
-            element: <Register />
-         },
-         {
             path: "/profile",
             element: <SecureRoute userRoles={["user"]}>
                <Profile />
@@ -54,6 +47,20 @@ export const router = createBrowserRouter([
             path: "/dummy-user-add",
             element: <DummyUser />
          }
+      ]
+   },
+   {
+      path: "/auth",
+      element: <AuthLayout />,
+      children: [
+         {
+            path: "/auth/login",
+            element: <Login />
+         },
+         {
+            path: "/auth/register",
+            element: <Register />
+         },
       ]
    },
 

@@ -28,7 +28,7 @@ export default function NotFound() {
                   </Link>
                </Button>
                <Button asChild variant="outline" className="gap-2 border-red-200 text-red-600 hover:bg-red-50">
-                  <Link to="/login">
+                  <Link to="/auth/login">
                      <Droplet className="h-4 w-4" />
                      Donate Now
                   </Link>

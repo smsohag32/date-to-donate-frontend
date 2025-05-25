@@ -12,6 +12,7 @@ import LogoRegular from "@/assets/logo/LogoRegular"
 import { useDispatch } from "react-redux"
 import { loginUser } from "@/redux-store/slices/auth-slice"
 import { toast } from "sonner"
+import GoogleLogin from "./GoogleLogin"
 
 const formSchema = z.object({
    email: z.string().email({ message: "Please enter a valid email address" }),
@@ -37,9 +38,10 @@ const Login = () => {
       const { email, password } = data;
       setIsLoading(true);
       try {
-         await dispatch(loginUser({ email, password })).unwrap();
-         // console.log("Login successful:", resultAction);
-         // toast.success("Login successful!");
+         const isSocial = false;
+         const credentials = { email, password };
+         await dispatch(loginUser({ credentials, isSocial })).unwrap(); // ✅ fix
+         toast.success("Login successful!");
          navigate(from, { replace: true });
       } catch (error) {
          console.error("Login failed:", error);
@@ -49,6 +51,7 @@ const Login = () => {
          setIsLoading(false);
       }
    };
+
 
    return (
       <div className="min-h-screen py-8 px-0 w-full  md:py-16 bg-gradient-to-b from-[#FF2156] to-[#FF2156] flex items-center justify-center">
@@ -130,10 +133,13 @@ const Login = () => {
 
                   <div className="mt-10 text-center text-gray-600">
                      Don&apos;t have an account?{" "}
-                     <Link to="/register" className="text-[#ff3366] font-medium hover:underline">
+                     <Link to="/auth/register" className="text-[#ff3366] font-medium hover:underline">
                         Register Now
                      </Link>
                      .
+                  </div>
+                  <div>
+                     <GoogleLogin />
                   </div>
                </div>
             </div>
