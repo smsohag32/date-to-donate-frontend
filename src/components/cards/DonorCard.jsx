@@ -9,6 +9,7 @@ import { Link } from "react-router-dom"
 import CallNowButton from "../buttons/CallNowButton"
 
 const DonorCard = ({ donor }) => {
+   console.log(donor)
 
    return (
       <motion.div whileHover={{ y: -10 }} transition={{ type: "spring", stiffness: 300, damping: 15 }}>
@@ -72,7 +73,7 @@ const DonorCard = ({ donor }) => {
                {donor?.name}
             </motion.h2>
 
-            <motion.div
+            {donor?.address && <motion.div
                className="flex items-center text-gray-500"
                initial={{ opacity: 0, y: 10 }}
                animate={{ opacity: 1, y: 0 }}
@@ -80,7 +81,7 @@ const DonorCard = ({ donor }) => {
             >
                <MapPin className="w-5 h-5 text-red-500 mr-1" />
                <span>{typeof donor?.address === "string" && donor?.address ? donor.address : "N/A"}</span>
-            </motion.div>
+            </motion.div>}
 
             <div className="flex gap-2 w-full mt-3">
                <Link to={`/dashboard/find-donors/${String(donor?.user_id?._id)}`} className="w-full">

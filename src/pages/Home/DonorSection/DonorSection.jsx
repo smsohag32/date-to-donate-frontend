@@ -29,7 +29,7 @@ const DonorSection = () => {
 
    const { data, isLoading, isFetching } = useGetDonorsQuery({
       page: currentPage,
-      limit: 6,
+      limit: 9,
       blood_group: selectedBloodGroup === "All" ? "" : selectedBloodGroup,
       searchText: searchText,
    })
@@ -219,7 +219,7 @@ const DonorSection = () => {
                            </div>
 
                            {/* Availability Checkboxes */}
-                           <div className="space-y-4">
+                           {/* <div className="space-y-4">
                               <div className="flex items-center">
                                  <div className="w-1 h-5 bg-rose-500 rounded-full mr-3"></div>
                                  <h5 className="text-sm font-medium text-gray-700">Availability Preferences</h5>
@@ -259,7 +259,7 @@ const DonorSection = () => {
                                     </label>
                                  </div>
                               </div>
-                           </div>
+                           </div> */}
 
                            {/* Action Buttons */}
                            <div className="flex justify-end space-x-3">

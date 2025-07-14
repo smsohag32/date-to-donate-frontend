@@ -11,7 +11,7 @@ const FindDonor = () => {
    return (
       <div className="min-h-screen bg-white overflow-hidden">
          {/* Hero Section */}
-         <section className="relative pt-16 backdrop-blur-sm shadow-sm shadow-rose-50 bg-rose-300/10">
+         {/* <section className="relative pt-16 backdrop-blur-sm shadow-sm shadow-rose-50 bg-rose-300/10">
             <div className="main-container">
                <div className="flex flex-col items-center text-center max-w-3xl mx-auto space-y-6">
                   <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-800">Find a Donor, Save a Life</h1>
@@ -25,7 +25,7 @@ const FindDonor = () => {
                   </div>
                </div>
             </div>
-         </section>
+         </section> */}
 
          {/* Original DonorSection */}
          <DonorSection />

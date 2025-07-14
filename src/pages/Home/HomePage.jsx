@@ -7,7 +7,7 @@ const HomePage = () => {
    return (
       <div className="overflow-hidden">
          <Hero />
-         <Featured />
+         {/* <Featured /> */}
          <DonorSection />
          <AppBanner />
       </div>

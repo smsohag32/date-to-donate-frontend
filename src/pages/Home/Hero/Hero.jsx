@@ -49,7 +49,7 @@ const Hero = () => {
                         data-aos-delay="400"
                      >
                         <Link
-                           to="/register"
+                           to="/auth/register"
                            className="inline-flex h-12 items-center justify-center rounded-lg bg-red-600 px-6 text-base font-medium text-white shadow-lg transition-all hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800 group"
                         >
                            <Heart className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />

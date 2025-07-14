@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom"
 import Loading from "@/components/skeleton/Loading"
 import EditProfileForm from "./EditProfile"
 import { toast } from "sonner"
+import { CookieManager } from "@/utils/helpers"
 
 const Profile = () => {
    const { user } = useAuth()
@@ -51,24 +52,34 @@ const Profile = () => {
 
 
    const handleProfileUpdate = async (modifiedUser) => {
+      try {
+         const { file, ...userInfo } = modifiedUser;
 
-      console.log("Updating profile with:", modifiedUser)
-      const { file, ...userInfo } = modifiedUser
-      const formData = new FormData()
-      if (file) {
-         formData.append("image", file)
-      }
-      formData.append("content", JSON.stringify(userInfo))
-      const response = await updateUser({ id: userData._id, formData }).unwrap()
 
-      console.log("Profile updated successfully:", response)
-      if (response?.httpStatusCode === 200) {
-         toast.info("Profile updated successfully")
-         setShowEditForm(false)
-      } else {
-         toast.error(response?.message || "Failed to update profile")
+         const formData = new FormData();
+
+         if (file) {
+            formData.append("image", file);
+         }
+         formData.append("content", JSON.stringify(userInfo));
+         const response = await updateUser({ id: userData._id, formData }).unwrap();
+         if (response?.httpStatusCode === 200) {
+            if (response?.data) {
+               CookieManager.setCookie("user_info", JSON.stringify(response.data));
+            }
+
+            toast.info("Profile updated successfully");
+            setShowEditForm(false);
+         } else {
+            toast.error(response?.message || "Failed to update profile");
+         }
+
+      } catch (error) {
+         console.error("Profile update failed:", error);
+         toast.error("Something went wrong while updating profile");
       }
-   }
+   };
+
 
    return (
       <div className="main-container py-8">

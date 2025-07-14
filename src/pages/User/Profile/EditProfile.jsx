@@ -25,6 +25,12 @@ const formSchema = z.object({
    first_name: z.string().min(2, "First name must be at least 2 characters"),
    blood_group: z.string().min(1, "Please select a blood group"),
 
+   // Optional fields
+   last_name: z.string().optional(),
+   phone: z.string().optional(),
+   address: z.string().optional(),
+   last_donation_date: z.date().optional(),
+   profile_image: z.any().optional(),
 });
 
 
@@ -61,14 +67,39 @@ export default function EditProfileForm({ profile, onSubmit, onCancel }) {
    const handleSubmit = async (values) => {
       setIsSubmitting(true)
       try {
-         await onSubmit({ ...values, file: file })
+         // Build object with only changed fields
+         const changedValues = Object.entries(values).reduce((acc, [key, value]) => {
+            const originalValue = profile?.[key];
+
+            // Special case: handle Date comparison
+            if (key === "last_donation_date") {
+               const originalDate = originalValue ? new Date(originalValue).toISOString() : null;
+               const newDate = value ? new Date(value).toISOString() : null;
+               if (originalDate !== newDate) {
+                  acc[key] = value;
+               }
+            }
+
+
+
+            // Default case: check if value is different
+            else if (value !== originalValue) {
+               acc[key] = value;
+            }
+
+            return acc;
+         }, {});
+         if (file) {
+            changedValues.file = file;
+         }
+         await onSubmit(changedValues);
       } catch (error) {
-         console.error("Error updating profile:", error)
-         
+         console.error("Error updating profile:", error);
       } finally {
-         setIsSubmitting(false)
+         setIsSubmitting(false);
       }
-   }
+   };
+
 
    const getInitials = (firstName, lastName) => {
       return `${firstName?.charAt(0) || ""}${lastName?.charAt(0) || ""}`
