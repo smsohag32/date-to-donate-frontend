@@ -1,4 +1,4 @@
-import { Users, User, Calendar, Clock, Heart, Award, History, MessageSquare, Bell, Settings } from "lucide-react"
+import { Users, User, Calendar, History, MessageSquare, Bell, } from "lucide-react"
 
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar"
 
@@ -20,7 +20,7 @@ const data = {
       },
       {
          title: "Donation Request",
-         url: "/donation-request",
+         url: "/dashboard/donation_request",
          icon: Calendar,
       },
       {

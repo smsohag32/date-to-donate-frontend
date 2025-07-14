@@ -9,13 +9,11 @@ import {
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "./app-sidebar";
 import { Outlet } from "react-router-dom";
-import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
-import useAuth from "@/hooks/useAuth";
 import { Header } from "./header";
 import UserAvatar from "@/components/avater/UserAvatar";
 
 export default function UserDashboardLayout() {
-   const { user } = useAuth();
+
    return (
       <SidebarProvider>
          <AppSidebar className="!bg-white" />

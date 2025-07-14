@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 
 export default function Loading() {
    return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-white">
+      <div className="flex flex-col items-center justify-center min-h-[60vh] bg-white">
          {/* Blood Drop Icon with Subtle Bobbing */}
          <motion.div
             initial={{ y: 0 }}

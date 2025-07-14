@@ -1,13 +1,11 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import AppBanner from "../Home/Banner/AppBanner"
 import DonorSection from "../Home/DonorSection/DonorSection"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { UserRound, HeartHandshake, Award, Users } from "lucide-react"
-import { useNavigate } from "react-router-dom"
 
 const FindDonor = () => {
-   const navigate = useNavigate()
+
    return (
       <div className="min-h-screen bg-white overflow-hidden">
          {/* Hero Section */}
