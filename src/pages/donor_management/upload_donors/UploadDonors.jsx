@@ -271,7 +271,13 @@ const UploadDonors = () => {
                            data={fileData.data}
                            colHeaders={fileData.headers}
                            rowHeaders={true}
+                           activeHeaderClassName=""
+
+
+
                            height="500"
+
+
                            width="100%"
                            colWidths={250}
                            licenseKey="non-commercial-and-evaluation"
