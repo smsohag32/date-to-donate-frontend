@@ -14,7 +14,15 @@ const donorApi = apiSlice.injectEndpoints({
          }),
          providesTags: ["donors"],
       }),
+      bulkUploadDonor: builder.mutation({
+         query: ({ formData }) => ({
+            url: `/user/onboard-users-from-excel`,
+            method: "POST",
+            body: formData,
+         }),
+         invalidatesTags: ["donors"],
+      }),
    }),
 });
 
-export const { useGetDonorsQuery } = donorApi;
+export const { useGetDonorsQuery, useBulkUploadDonorMutation } = donorApi;
