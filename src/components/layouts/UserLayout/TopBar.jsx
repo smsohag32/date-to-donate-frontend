@@ -74,7 +74,7 @@ const TopBar = () => {
    };
 
    return (
-      <header className="flex h-17 border-b rounded-[8px] shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+      <header className="flex h-17 sticky top-0 border-b z-50  bg-white rounded-[8px] shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
          <div className="flex justify-between w-full items-center gap-2 px-4">
             <div className="flex items-center">
                <SidebarTrigger className="-ml-1" />

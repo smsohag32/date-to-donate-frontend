@@ -72,12 +72,8 @@ const DashboardOverview = () => {
 
    if (isLoading) {
       return (
-         <div className="min-h-screen bg-gray-50 p-6">
-            <div className="main-container space-y-6">
-               <div className="flex items-center justify-between">
-                  <Skeleton className="h-8 w-48" />
-                  <Skeleton className="h-10 w-24" />
-               </div>
+         <div className="min-h-screen">
+            <div className="px-4 py-4 space-y-4">
                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {[...Array(4)].map((_, i) => (
                      <Card key={i}>
