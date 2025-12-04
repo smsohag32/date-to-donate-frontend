@@ -9,13 +9,15 @@ import {
    BreadcrumbPage,
    BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { NavLink, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { formatBreadcrumb } from "@/utils/format";
 import { useDispatch } from "react-redux";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { logoutUser } from "@/redux-store/slices/auth-slice";
 import useAuth from "@/hooks/useAuth";
+import Logo from "@/assets/logo/Logo";
+import LogoRegular from "@/assets/logo/LogoRegular";
 
 const TopBar = () => {
    const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -84,30 +86,39 @@ const TopBar = () => {
                   orientation="vertical"
                   className="mr-2 h-4"
                />
-               <Breadcrumb>
-                  <BreadcrumbList>
-                     {pathSegments.map((segment, index) => {
-                        const href = "/" + pathSegments.slice(0, index + 1).join("/");
-                        const isLast = index === pathSegments.length - 1;
-                        const linkWithSearch = buildLink(href, segment);
+               <div className="hidden lg:block">
+                  <Breadcrumb>
+                     <BreadcrumbList>
+                        {pathSegments.map((segment, index) => {
+                           const href = "/" + pathSegments.slice(0, index + 1).join("/");
+                           const isLast = index === pathSegments.length - 1;
+                           const linkWithSearch = buildLink(href, segment);
 
-                        return (
-                           <BreadcrumbItem key={href}>
-                              {isLast ? (
-                                 <BreadcrumbPage>{formatBreadcrumb(segment)}</BreadcrumbPage>
-                              ) : (
-                                 <>
-                                    <BreadcrumbLink href={linkWithSearch}>
-                                       {formatBreadcrumb(segment)}
-                                    </BreadcrumbLink>
-                                    <BreadcrumbSeparator />
-                                 </>
-                              )}
-                           </BreadcrumbItem>
-                        );
-                     })}
-                  </BreadcrumbList>
-               </Breadcrumb>
+                           return (
+                              <BreadcrumbItem key={href}>
+                                 {isLast ? (
+                                    <BreadcrumbPage>{formatBreadcrumb(segment)}</BreadcrumbPage>
+                                 ) : (
+                                    <>
+                                       <BreadcrumbLink href={linkWithSearch}>
+                                          {formatBreadcrumb(segment)}
+                                       </BreadcrumbLink>
+                                       <BreadcrumbSeparator />
+                                    </>
+                                 )}
+                              </BreadcrumbItem>
+                           );
+                        })}
+                     </BreadcrumbList>
+                  </Breadcrumb>
+               </div>
+               <div className=" flex lg:hidden items-center ml-4 lg:ml-6">
+                  <Separator orientation="vertical" className={"h-10! mr-4"} />
+                  <NavLink to="/" className="flex items-center  space-x-2">
+                     <LogoRegular className="w-4" />   <p><span className="text-[#FF2156] tracking-tighter font-medium text-lg ">Dare </span>
+                        <span className='text-[#595959] font-normal'>To</span>   <span className="text-[#FF2156] tracking-tighter font-medium text-lg ">  Donate</span></p>
+                  </NavLink>
+               </div>
             </div>
 
             <div className="flex items-center gap-3">
