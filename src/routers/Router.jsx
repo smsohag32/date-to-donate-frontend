@@ -13,9 +13,9 @@ import UserDashboardLayout from "@/components/layouts/UserLayout/UserDashboardLa
 import UserFindDonors from "@/pages/User/FindDonors/UserFindDonors"
 import DonorProfile from "@/pages/User/DonorProfile/DonorProfile"
 import DummyUser from "@/pages/DummyUser/DummyUser"
-import AuthLayout from "@/components/layouts/AuthLayout"
 import DonationRequest from "@/pages/donation_request/DonationRequest"
 import DashboardOverview from "@/pages/DashboardOverview/DashboardOverview"
+import UploadDonors from "@/pages/donor_management/upload_donors/UploadDonors"
 
 export const router = createBrowserRouter([
    {
@@ -94,6 +94,14 @@ export const router = createBrowserRouter([
             path: "/dashboard/find-donors/:donorId",
             element: <SecureRoute userRoles={["user"]}>
                <DonorProfile />
+            </SecureRoute>
+         },
+
+         // donor management
+         {
+            path: "/dashboard/upload-donors",
+            element: <SecureRoute userRoles={["user"]}>
+               <UploadDonors />
             </SecureRoute>
          },
          {

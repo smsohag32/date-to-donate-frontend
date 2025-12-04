@@ -1,4 +1,4 @@
-import { Users, User, Calendar, History, } from "lucide-react"
+import { Users, User, Calendar, } from "lucide-react"
 
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar"
 
@@ -22,6 +22,10 @@ const data = {
             {
                title: "Search Donors",
                url: "/dashboard/find-donors",
+            },
+            {
+               title: "Upload Donors",
+               url: "/dashboard/upload-donors",
             }
          ]
       },

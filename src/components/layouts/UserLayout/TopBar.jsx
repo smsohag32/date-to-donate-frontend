@@ -73,6 +73,8 @@ const TopBar = () => {
       return href;
    };
 
+   console.log(user)
+
    return (
       <header className="flex h-17 sticky top-0 border-b z-50  bg-white rounded-[8px] shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
          <div className="flex justify-between w-full items-center gap-2 px-4">
@@ -137,7 +139,8 @@ const TopBar = () => {
                               </div>
                               <div>
                                  <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                                    {user?.first_name || "User"}
+                                    {user?.first_name || user?.email?.split("@")[0] || "User"}
+
                                  </p>
                                  <p className="text-xs text-gray-500 dark:text-gray-400">
                                     {user?.email || "-"}
