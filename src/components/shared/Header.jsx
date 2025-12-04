@@ -19,7 +19,7 @@ const Header = () => {
    const { user } = useAuth()
    const navigate = useNavigate();
    return (
-      <header className="sticky bg-[#FF2156] top-0 z-50 w-full">
+      <header className="sticky bg-[#FF2156]/90  backdrop-blur-lg top-0 z-50 w-full">
          <div className="main-container flex h-16 items-center justify-between">
             <div className="flex items-center gap-6 w-full lg:w-auto">
                <MobileNav />

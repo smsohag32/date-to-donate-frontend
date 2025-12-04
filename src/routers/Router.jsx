@@ -27,6 +27,14 @@ export const router = createBrowserRouter([
             element: <HomePage />
          },
          {
+            path: "/auth/login",
+            element: <Login />
+         },
+         {
+            path: "/auth/register",
+            element: <Register />
+         },
+         {
             path: "/find-donor",
             element: <FindDonor />
          },
@@ -51,20 +59,20 @@ export const router = createBrowserRouter([
          }
       ]
    },
-   {
-      path: "/auth",
-      element: <AuthLayout />,
-      children: [
-         {
-            path: "/auth/login",
-            element: <Login />
-         },
-         {
-            path: "/auth/register",
-            element: <Register />
-         },
-      ]
-   },
+   // {
+   //    path: "/auth",
+   //    element: <AuthLayout />,
+   //    children: [
+   //       {
+   //          path: "/auth/login",
+   //          element: <Login />
+   //       },
+   //       {
+   //          path: "/auth/register",
+   //          element: <Register />
+   //       },
+   //    ]
+   // },
 
    {
       path: "/dashboard",

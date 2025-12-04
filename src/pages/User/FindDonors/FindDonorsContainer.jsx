@@ -63,9 +63,9 @@ const FindDonorsContainer = () => {
 
    return (
       <div id="find-donors" className="min-h-screen ">
-         <div className="main-container py-4">
+         <div className=" px-5 space-y-4 overflow-hidden py-4">
             {/* Header Section */}
-            <div className="text-center ">
+            <div className=" ">
                <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm mb-0">
                   <Droplets className="h-5 w-5 text-rose-600" />
                   <span className="text-sm font-medium text-rose-600">Blood Donor Search</span>
@@ -74,8 +74,8 @@ const FindDonorsContainer = () => {
             </div>
 
             {/* Search and Filter Bar */}
-            <Card className="mb-6 shadow-sm border-0 bg-white/80 backdrop-blur-sm">
-               <CardContent className="p-6">
+            <Card className="mb-6">
+               <CardContent className="">
                   <div className="flex flex-col md:flex-row gap-4">
                      {/* Search Input */}
                      <div className="relative flex-1">

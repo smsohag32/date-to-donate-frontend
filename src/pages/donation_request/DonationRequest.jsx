@@ -149,8 +149,8 @@ const DonationRequest = () => {
    const isLoading = tab === "mine" ? loadingMine : loadingForMe
 
    return (
-      <div className="min-h-screen bg-gray-50">
-         <div className="max-w-6xl mx-auto p-6">
+      <div className="min-h-screen">
+         <div className="px-5 py-4">
             {/* Header */}
             <div className="text-center mb-8">
                <div className="inline-flex items-center gap-2 bg-rose-50 px-4 py-2 rounded-full mb-4">

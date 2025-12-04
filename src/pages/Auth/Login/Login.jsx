@@ -13,6 +13,8 @@ import { useDispatch } from "react-redux"
 import { loginUser } from "@/redux-store/slices/auth-slice"
 import { toast } from "sonner"
 import GoogleLogin from "./GoogleLogin"
+import { Card } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
 
 const formSchema = z.object({
    email: z.string().email({ message: "Please enter a valid email address" }),
@@ -54,10 +56,10 @@ const Login = () => {
 
 
    return (
-      <div className="min-h-screen py-8 px-0 w-full  md:py-16 bg-gradient-to-b from-[#FF2156] to-[#FF2156] flex items-center justify-center">
+      <div className="min-h-screen py-8 px-0 w-full  md:py-16  flex items-center justify-center">
          <div className="main-container">
-            <div style={{ boxShadow: "0px 0px 30px 0px #4242421A", }} className="bg-[#FFFFFF] justify-center items-center w-full px-7 pb-14 pt-8 max-w-[480px]  flex mx-auto flex-col gap-4 rounded-[10px] ">
-               <div className="font-bold text-lg mb-8">
+            <Card className="bg-[#FFFFFF] justify-center items-center w-full px-7 pb-14 pt-8 max-w-[480px]  flex mx-auto flex-col gap-4 rounded-[10px] ">
+               <div className="font-bold text-lg mb-4">
                   <NavLink to="/" className="flex flex-col gap-2 items-center mt-3 space-x-2">
                      <LogoRegular className="w-10" />   <p><span className="text-[#FF2156] tracking-tighter font-medium text-lg ">Dare </span>
                         <span className='text-[#595959] font-normal'>To</span>   <span className="text-[#FF2156] tracking-tighter font-medium text-lg ">  Donate</span></p>
@@ -66,6 +68,7 @@ const Login = () => {
                   <p className="text-gray-700 font-semibold text-[24px] text-center mt-4">Log in</p>
                </div>
 
+               <Separator className={"mb-4"} />
                {/* Login Form */}
                <div className="w-full max-w-md">
                   <Form {...form}>
@@ -75,7 +78,7 @@ const Login = () => {
                            name="email"
                            render={({ field }) => (
                               <FormItem>
-                                 <div className="flex items-center  bg-gray-50 rounded-md">
+                                 <div className="flex items-center  border bg-gray-50 rounded-md">
                                     <div className="px-3 py-2">
                                        <Mail color="#FF2156" className="h-5 w-5 text-gray-400" />
                                     </div>
@@ -97,7 +100,7 @@ const Login = () => {
                            name="password"
                            render={({ field }) => (
                               <FormItem>
-                                 <div className="flex items-center bg-gray-50 rounded-md">
+                                 <div className="flex items-center border bg-gray-50 rounded-md">
                                     <div className="px-3 py-2">
                                        <Lock color="#FF2156" className="h-5 w-5 text-gray-400" />
                                     </div>
@@ -142,7 +145,7 @@ const Login = () => {
                      <GoogleLogin />
                   </div>
                </div>
-            </div>
+            </Card>
          </div>
       </div>
    )

@@ -117,13 +117,13 @@ const DashboardOverview = () => {
 
    return (
       <div className="min-h-screen bg-gray-50">
-         <div className="max-w-7xl mx-auto p-6">
+         <div className=" px-4 py-4">
 
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                <Card className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
+                  <CardContent className="">
                      <div className="flex items-center justify-between">
                         <div>
                            <p className="text-sm font-medium text-gray-600">Sent Requests</p>
@@ -137,7 +137,7 @@ const DashboardOverview = () => {
                </Card>
 
                <Card className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
+                  <CardContent className="">
                      <div className="flex items-center justify-between">
                         <div>
                            <p className="text-sm font-medium text-gray-600">Received Requests</p>
@@ -151,7 +151,7 @@ const DashboardOverview = () => {
                </Card>
 
                <Card className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
+                  <CardContent className="">
                      <div className="flex items-center justify-between">
                         <div>
                            <p className="text-sm font-medium text-gray-600">Successful Donations</p>
@@ -165,7 +165,7 @@ const DashboardOverview = () => {
                </Card>
 
                <Card className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
+                  <CardContent className="">
                      <div className="flex items-center justify-between">
                         <div>
                            <p className="text-sm font-medium text-gray-600">Success Rate</p>
@@ -180,7 +180,7 @@ const DashboardOverview = () => {
             </div>
 
             {/* Status Overview */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
                <Card>
                   <CardHeader>
                      <CardTitle className="flex items-center gap-2">
@@ -271,7 +271,7 @@ const DashboardOverview = () => {
             </div>
 
             {/* Recent Activity */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                {/* Recent Sent Requests */}
                <Card>
                   <CardHeader>

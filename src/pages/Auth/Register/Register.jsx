@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { useRegisterUserMutation } from "@/redux-store/services/user-api"
 import { toast } from "sonner"
+import { Separator } from "@/components/ui/separator"
 
 
 const formSchema = z.object({
@@ -51,10 +52,10 @@ const Register = () => {
    }
 
    return (
-      <div className="min-h-screen py-8 px-0 w-full  md:py-16 bg-gradient-to-b from-[#FF2156] to-[#FF2156] flex items-center justify-center">
+      <div className="min-h-screen py-8 px-0 w-full  md:py-16 flex items-center justify-center">
          <div className="main-container">
-            <Card className="max-w-3xl  w-full  lg:px-8 mx-auto shadow-lg border-0">
-               <CardHeader className="space-y-1 text-center pb-6 pt-8">
+            <Card className="max-w-3xl  w-full  lg:px-8 mx-auto">
+               <CardHeader className="space-y-1 text-center pt-8">
                   <div className="flex flex-col items-center gap-2">
                      <div className="h-12 w-12 rounded-full bg-red-50 flex items-center justify-center">
                         <Droplet className="h-6 w-6 text-[#FF2156]" />
@@ -69,6 +70,9 @@ const Register = () => {
                   <p className="text-gray-500 text-sm">Enter your information to register</p>
                </CardHeader>
 
+
+               <Separator className={"mb-4"} />
+
                <CardContent className="px-6 pb-8">
                   <Form {...form}>
                      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -82,7 +86,7 @@ const Register = () => {
                                     <div className="relative">
                                        <FormControl>
                                           <Input
-                                             className="pl-10 py-6 bg-gray-50 border-gray-200 focus:border-[#FF2156] focus-visible:ring-[#FF2156]/20"
+                                             className="pl-10 py-5 bg-gray-50 border-gray-200 focus:border-[#FF2156] focus-visible:ring-[#FF2156]/20"
                                              placeholder="Enter your first name"
                                              {...field}
                                           />
@@ -103,7 +107,7 @@ const Register = () => {
                                     <div className="relative">
                                        <FormControl>
                                           <Input
-                                             className="pl-10 py-6 bg-gray-50 border-gray-200 focus:border-[#FF2156] focus-visible:ring-[#FF2156]/20"
+                                             className="pl-10 py-5 bg-gray-50 border-gray-200 focus:border-[#FF2156] focus-visible:ring-[#FF2156]/20"
                                              placeholder="Enter your last name"
                                              {...field}
                                           />
@@ -126,7 +130,7 @@ const Register = () => {
                                     <FormControl>
                                        <Input
                                           type="email"
-                                          className="pl-10 py-6 bg-gray-50 border-gray-200 focus:border-[#FF2156] focus-visible:ring-[#FF2156]/20"
+                                          className="pl-10 py-5 bg-gray-50 border-gray-200 focus:border-[#FF2156] focus-visible:ring-[#FF2156]/20"
                                           placeholder="Enter your email address"
                                           {...field}
                                        />
@@ -148,7 +152,7 @@ const Register = () => {
                                     <div className="relative">
                                        <FormControl>
                                           <Input
-                                             className="pl-10 py-6 bg-gray-50 border-gray-200 focus:border-[#FF2156] focus-visible:ring-[#FF2156]/20"
+                                             className="pl-10 py-5 bg-gray-50 border-gray-200 focus:border-[#FF2156] focus-visible:ring-[#FF2156]/20"
                                              placeholder="Enter your phone number"
                                              {...field}
                                           />
@@ -167,7 +171,7 @@ const Register = () => {
                                  <FormItem>
                                     <FormLabel className="text-gray-700">Blood Group</FormLabel>
                                     <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                       <SelectTrigger className="pl-10 py-6 bg-gray-50 border-gray-200 focus:border-[#FF2156] focus-visible:ring-[#FF2156]/20 relative">
+                                       <SelectTrigger className="pl-10 py-5 bg-gray-50 border-gray-200 focus:border-[#FF2156] focus-visible:ring-[#FF2156]/20 relative">
                                           <Droplet className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[#FF2156]" />
                                           <SelectValue placeholder="Select Blood Group" />
                                        </SelectTrigger>
@@ -194,7 +198,7 @@ const Register = () => {
                                  <div className="relative">
                                     <FormControl>
                                        <Input
-                                          className="pl-10 py-6 bg-gray-50 border-gray-200 focus:border-[#FF2156] focus-visible:ring-[#FF2156]/20"
+                                          className="pl-10 py-5 bg-gray-50 border-gray-200 focus:border-[#FF2156] focus-visible:ring-[#FF2156]/20"
                                           placeholder="Enter your full address"
                                           {...field}
                                        />
@@ -216,7 +220,7 @@ const Register = () => {
                                     <FormControl>
                                        <Input
                                           type="password"
-                                          className="pl-10 py-6 bg-gray-50 border-gray-200 focus:border-[#FF2156] focus-visible:ring-[#FF2156]/20"
+                                          className="pl-10 py-5 bg-gray-50 border-gray-200 focus:border-[#FF2156] focus-visible:ring-[#FF2156]/20"
                                           placeholder="Create a secure password"
                                           {...field}
                                        />
@@ -230,7 +234,7 @@ const Register = () => {
 
                         <Button
                            type="submit"
-                           className="w-full bg-[#FF2156] hover:bg-[#e01e4d] text-white font-medium py-6 rounded-md transition-colors"
+                           className="w-full bg-[#FF2156] hover:bg-[#e01e4d] text-white font-medium py-5 rounded-md transition-colors"
                            disabled={isLoading}
                         >
                            {isLoading ? "Creating Account..." : "Create Account"}

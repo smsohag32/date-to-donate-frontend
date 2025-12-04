@@ -82,7 +82,7 @@ const Profile = () => {
 
 
    return (
-      <div className="main-container py-8">
+      <div className="px-4 py-5">
          {showEditForm ? (
             <EditProfileForm profile={profile} onSubmit={handleProfileUpdate} onCancel={() => setShowEditForm(false)} />
          ) : (

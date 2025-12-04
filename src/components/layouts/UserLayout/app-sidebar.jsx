@@ -1,4 +1,4 @@
-import { Users, User, Calendar, History, MessageSquare, Bell, } from "lucide-react"
+import { Users, User, Calendar, History, } from "lucide-react"
 
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar"
 
@@ -13,56 +13,30 @@ const data = {
          url: "/dashboard",
          icon: User,
       },
+
       {
-         title: "Profile",
-         url: "/dashboard/profile",
-         icon: User,
-      },
-      {
-         title: "Find Donors",
+         title: "Blood Donors",
          url: "/dashboard/find-donors",
          icon: Users,
+         items: [
+            {
+               title: "Search Donors",
+               url: "/dashboard/find-donors",
+            }
+         ]
       },
       {
          title: "Donation Request",
          url: "/dashboard/donation_request",
          icon: Calendar,
       },
+
       {
-         title: "Donation History",
-         url: "/donation-history",
-         icon: History,
+         title: "Profile Settings",
+         url: "/dashboard/profile",
+         icon: User,
       },
-      // {
-      //    title: "Upcoming Donations",
-      //    url: "/upcoming-donations",
-      //    icon: Clock,
-      // },
-      // {
-      //    title: "Impact Dashboard",
-      //    url: "/impact",
-      //    icon: Heart,
-      // },
-      // {
-      //    title: "Achievements",
-      //    url: "/achievements",
-      //    icon: Award,
-      // },
-      {
-         title: "Messages",
-         url: "/messages",
-         icon: MessageSquare,
-      },
-      {
-         title: "Notifications",
-         url: "/notifications",
-         icon: Bell,
-      },
-      // {
-      //    title: "Settings",
-      //    url: "/settings",
-      //    icon: Settings,
-      // },
+
    ],
 }
 
