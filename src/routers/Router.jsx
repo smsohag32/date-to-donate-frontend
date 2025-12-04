@@ -15,6 +15,7 @@ import DonorProfile from "@/pages/User/DonorProfile/DonorProfile"
 import DummyUser from "@/pages/DummyUser/DummyUser"
 import AuthLayout from "@/components/layouts/AuthLayout"
 import DonationRequest from "@/pages/donation_request/DonationRequest"
+import DashboardOverview from "@/pages/DashboardOverview/DashboardOverview"
 
 export const router = createBrowserRouter([
    {
@@ -71,7 +72,7 @@ export const router = createBrowserRouter([
       children: [
          {
             path: "/dashboard",
-            element: <Profile />
+            element: <DashboardOverview />
          },
          {
             path: "/dashboard/profile",

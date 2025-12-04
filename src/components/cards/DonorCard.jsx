@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion"
-import { MapPin, Info } from 'lucide-react'
+import { MapPin, Info, Phone } from 'lucide-react'
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
@@ -72,6 +72,16 @@ const DonorCard = ({ donor }) => {
             >
                {donor?.name}
             </motion.h2>
+
+            {donor?.phone && <motion.div
+               className="flex items-center text-gray-500"
+               initial={{ opacity: 0, y: 10 }}
+               animate={{ opacity: 1, y: 0 }}
+               transition={{ delay: 0.4 }}
+            >
+               <Phone className="w-5 h-5 text-red-500 mr-1" />
+               <span>{typeof donor?.phone === "string" && donor?.phone ? donor.phone : "N/A"}</span>
+            </motion.div>}
 
             {donor?.address && <motion.div
                className="flex items-center text-gray-500"

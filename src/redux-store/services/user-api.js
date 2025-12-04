@@ -8,6 +8,12 @@ const userApi = apiSlice.injectEndpoints({
          }),
          providesTags: ["users"],
       }),
+      getDashboardOverviewData: builder.query({
+         query: ({ id }) => ({
+            url: `/user/dashboard/overview/${id}`,
+         }),
+         providesTags: ["users"],
+      }),
       getUserById: builder.query({
          query: ({ id }) => ({
             url: `/user/${id}`,
@@ -37,5 +43,6 @@ export const {
    useGetUserQuery,
    useRegisterUserMutation,
    useGetUserByIdQuery,
+   useGetDashboardOverviewDataQuery,
    useUpdateUserMutation,
 } = userApi;

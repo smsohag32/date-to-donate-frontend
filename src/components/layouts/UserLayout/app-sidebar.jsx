@@ -9,8 +9,13 @@ import { ProjectLogo } from "./ProjectLogo"
 const data = {
    navMain: [
       {
-         title: "Profile",
+         title: "Overview",
          url: "/dashboard",
+         icon: User,
+      },
+      {
+         title: "Profile",
+         url: "/dashboard/profile",
          icon: User,
       },
       {
