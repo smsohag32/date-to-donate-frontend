@@ -1,16 +1,16 @@
 
 import { useState } from "react"
-import { Search, X, ChevronLeft, ChevronRight } from "lucide-react"
+import { Search, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import "aos/dist/aos.css"
 
 import filterImage from "@/assets/icon/filter.png"
 import DonorCard from "@/components/cards/DonorCard"
 import { useGetDonorsQuery } from "@/redux-store/services/donor-api"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import Loading from "@/components/skeleton/Loading"
 import EmptyState from "@/components/Empty/Empty"
+import { PaginationControls } from "@/components/pagination/PaginationControl"
 
 const bloodGroups = ["All", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
 
@@ -24,7 +24,7 @@ const DonorSection = () => {
    const [hasRecentlyDonated, setHasRecentlyDonated] = useState(false)
    const [isRegularDonor, setIsRegularDonor] = useState(false)
 
-   const [currentPage, setCurrentPage] = useState(1)
+   const [currentPage, setCurrentPage] = useState(0)
 
 
    const { data, isLoading, isFetching } = useGetDonorsQuery({
@@ -54,35 +54,7 @@ const DonorSection = () => {
       })
    }
 
-   // Generate pagination items
-   const generatePaginationItems = () => {
-      const totalPages = data?.data?.totalPages || 0
 
-      if (totalPages <= 6) {
-         // If 6 or fewer pages, show all page numbers
-         return Array.from({ length: totalPages }, (_, i) => i + 1)
-      } else {
-         // For more than 6 pages, show first, last, current, and nearby pages
-         let pages = []
-
-         // Always include first page
-         pages.push(1)
-
-         // Logic for middle pages
-         if (currentPage <= 3) {
-            // Near the start
-            pages = [...pages, 2, 3, 4, "...", totalPages]
-         } else if (currentPage >= totalPages - 2) {
-            // Near the end
-            pages = [...pages, "...", totalPages - 3, totalPages - 2, totalPages - 1, totalPages]
-         } else {
-            // In the middle
-            pages = [...pages, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages]
-         }
-
-         return pages
-      }
-   }
 
    const containerVariants = {
       hidden: { opacity: 0 },
@@ -287,7 +259,7 @@ const DonorSection = () => {
                <Loading />
             ) : data?.data?.donors?.length > 0 ? (
                <motion.div
-                  className="grid mt-20 relative lg:grid-cols-3 z-50 gap-10 md:grid-cols-3 grid-cols-1"
+                  className="grid mt-20 relative lg:grid-cols-4 z-50 gap-10 md:grid-cols-3 grid-cols-1"
                   variants={containerVariants}
                >
                   {data?.data?.donors?.length > 0 &&
@@ -312,55 +284,10 @@ const DonorSection = () => {
 
             {/* Pagination Component */}
             {data?.data?.donors?.length > 0 && data?.data?.totalPages > 1 && (
-               <motion.div
-                  className="flex justify-center mt-16"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-               >
-                  <div className="flex items-center justify-center space-x-2">
-                     {/* Previous Button */}
-                     <button
-                        onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
-                        disabled={currentPage === 1}
-                        className={`flex items-center justify-center h-10 w-10 rounded-md border transition-colors ${currentPage === 1
-                           ? "border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed"
-                           : "border-gray-200 bg-white text-gray-700 hover:bg-rose-50 hover:text-rose-600 hover:border-rose-300"
-                           }`}
-                     >
-                        <ChevronLeft size={18} />
-                     </button>
 
-                     {/* Page Numbers */}
-                     {generatePaginationItems().map((page, index) => (
-                        <button
-                           key={index}
-                           onClick={() => typeof page === "number" && handlePageChange(page)}
-                           disabled={page === "..."}
-                           className={`flex items-center justify-center h-10 w-10 rounded-md border transition-colors ${page === currentPage
-                              ? "border-rose-500 bg-rose-50 text-rose-600 font-medium"
-                              : page === "..."
-                                 ? "border-transparent bg-transparent text-gray-500 cursor-default"
-                                 : "border-gray-200 bg-white text-gray-700 hover:bg-rose-50 hover:text-rose-600 hover:border-rose-300"
-                              }`}
-                        >
-                           {page}
-                        </button>
-                     ))}
-
-                     {/* Next Button */}
-                     <button
-                        onClick={() => currentPage < data?.data?.totalPages && handlePageChange(currentPage + 1)}
-                        disabled={currentPage === data?.data?.totalPages}
-                        className={`flex items-center justify-center h-10 w-10 rounded-md border transition-colors ${currentPage === data?.data?.totalPages
-                           ? "border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed"
-                           : "border-gray-200 bg-white text-gray-700 hover:bg-rose-50 hover:text-rose-600 hover:border-rose-300"
-                           }`}
-                     >
-                        <ChevronRight size={18} />
-                     </button>
-                  </div>
-               </motion.div>
+               <div className="pt-8">
+                  <PaginationControls currentPage={currentPage} onPageChange={handlePageChange} totalPages={data?.data?.totalPages} />
+               </div>
             )}
          </motion.div>
 

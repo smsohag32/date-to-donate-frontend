@@ -11,6 +11,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Loading from "@/components/skeleton/Loading"
 import EmptyState from "@/components/Empty/Empty"
+import { PaginationControls } from "@/components/pagination/PaginationControl"
 
 const bloodGroups = ["All", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
 
@@ -226,7 +227,7 @@ const FindDonorsContainer = () => {
 
                   {/* Donor Cards Grid */}
                   <motion.div
-                     className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 gap-y-16 mb-8"
+                     className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-6 gap-y-16 mb-8"
                      initial={{ opacity: 0 }}
                      animate={{ opacity: 1 }}
                      transition={{ duration: 0.5 }}
@@ -245,49 +246,9 @@ const FindDonorsContainer = () => {
 
                   {/* Pagination */}
                   {data?.data?.totalPages > 1 && (
-                     <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-sm">
-                        <CardContent className="p-4">
-                           <div className="flex items-center justify-center space-x-2">
-                              <Button
-                                 variant="outline"
-                                 size="sm"
-                                 onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
-                                 disabled={currentPage === 1}
-                                 className="h-10 w-10 p-0"
-                              >
-                                 <ChevronLeft className="h-4 w-4" />
-                              </Button>
-
-                              {generatePaginationItems().map((page, index) => (
-                                 <Button
-                                    key={index}
-                                    variant={page === currentPage ? "default" : "outline"}
-                                    size="sm"
-                                    onClick={() => typeof page === "number" && handlePageChange(page)}
-                                    disabled={page === "..."}
-                                    className={`h-10 w-10 p-0 ${page === currentPage
-                                       ? "bg-rose-600 hover:bg-rose-700 text-white"
-                                       : page === "..."
-                                          ? "cursor-default border-transparent"
-                                          : "hover:bg-rose-50 hover:text-rose-600 hover:border-rose-300"
-                                       }`}
-                                 >
-                                    {page}
-                                 </Button>
-                              ))}
-
-                              <Button
-                                 variant="outline"
-                                 size="sm"
-                                 onClick={() => currentPage < data?.data?.totalPages && handlePageChange(currentPage + 1)}
-                                 disabled={currentPage === data?.data?.totalPages}
-                                 className="h-10 w-10 p-0"
-                              >
-                                 <ChevronRight className="h-4 w-4" />
-                              </Button>
-                           </div>
-                        </CardContent>
-                     </Card>
+                     <div className="pt-8">
+                        <PaginationControls currentPage={currentPage} onPageChange={handlePageChange} totalPages={data?.data?.totalPages} />
+                     </div>
                   )}
                </>
             ) : (
