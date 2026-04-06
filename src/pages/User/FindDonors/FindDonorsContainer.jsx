@@ -63,8 +63,8 @@ const FindDonorsContainer = () => {
    const activeFiltersCount = selectedBloodGroup !== "All" ? 1 : 0
 
    return (
-      <div id="find-donors" className="min-h-screen ">
-         <div className=" px-5 space-y-4 overflow-hidden py-4">
+      <div id="find-donors" className="min-h-screen bg-slate-50/50">
+         <div className="max-w-7xl mx-auto px-6 md:px-12 space-y-8 py-12">
             {/* Header Section */}
             <div className=" ">
                <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm mb-0">
@@ -227,7 +227,7 @@ const FindDonorsContainer = () => {
 
                   {/* Donor Cards Grid */}
                   <motion.div
-                     className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-6 gap-y-16 mb-8"
+                     className="grid md:grid-cols-2 grid-cols-1 gap-12 gap-y-24 mb-16"
                      initial={{ opacity: 0 }}
                      animate={{ opacity: 1 }}
                      transition={{ duration: 0.5 }}
