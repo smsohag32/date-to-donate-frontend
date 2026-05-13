@@ -16,8 +16,8 @@ const DonationRequest = () => {
    const [tab, setTab] = useState("mine")
    const [search, setSearch] = useState("")
 
-   const { data: requestsByMe, isLoading: loadingMine, refetch: refetchMine } = useGetRequestsByUserQuery(user?._id)
-   const { data: requestsForMe, isLoading: loadingForMe, refetch: refetchForMe } = useGetRequestsByDonorQuery(user?._id)
+   const { data: requestsByMe, isLoading: loadingMine, refetch: refetchMine } = useGetRequestsByUserQuery(user?.id)
+   const { data: requestsForMe, isLoading: loadingForMe, refetch: refetchForMe } = useGetRequestsByDonorQuery(user?.id)
 
    const filterRequests = (requests) => {
       if (!requests?.data) return []
@@ -45,7 +45,7 @@ const DonationRequest = () => {
    }
 
    const renderCard = (request) => (
-      <Card key={request._id} className="group hover:shadow-lg transition-all duration-300 border-l-4 border-l-rose-500">
+      <Card key={request.id} className="group hover:shadow-lg transition-all duration-300 border-l-4 border-l-rose-500">
          <CardHeader className="pb-3">
             <div className="flex items-start justify-between">
                <div className="flex items-center gap-3">

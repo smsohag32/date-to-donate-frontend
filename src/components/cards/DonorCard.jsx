@@ -55,10 +55,17 @@ const DonorCard = ({ donor }) => {
                </div>
 
                {/* 3. Identity Section */}
-               <div className="text-center space-y-2 mb-6">
-                  <h2 className="text-xl font-black text-slate-900 tracking-tight group-hover:text-rose-600 transition-colors duration-300 px-2 line-clamp-1">
-                     {donor?.name}
-                  </h2>
+               <div className="text-center space-y-3 mb-6">
+                  <div className="space-y-1">
+                     <h2 className="text-xl font-black text-slate-900 tracking-tight group-hover:text-rose-600 transition-colors duration-300 px-2 line-clamp-1">
+                        {donor?.name}
+                     </h2>
+                     <div className="flex items-center justify-center gap-2">
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{donor?.gender || "Not Specified"}</span>
+                        <span className="w-1 h-1 rounded-full bg-slate-300"></span>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{donor?.total_donations || "0"} Donations</span>
+                     </div>
+                  </div>
                   <div className="inline-flex items-center gap-1.5 bg-slate-50 border border-slate-100 px-3 py-1 rounded-lg text-slate-500">
                      <MapPin className="w-3 h-3 text-rose-500" />
                      <span className="text-[10px] font-bold uppercase tracking-tight">{donor?.address || "Unknown"}</span>
@@ -92,7 +99,7 @@ const DonorCard = ({ donor }) => {
 
             {/* 5. Footer: Compact Action Buttons */}
             <div className="px-6 pb-6 pt-0 grid grid-cols-2 gap-3 mt-auto">
-               <Link to={`/dashboard/find-donors/${String(donor?.user_id?._id)}`} className="w-full">
+               <Link to={`/dashboard/find-donors/${String(donor?.user_id?.id)}`} className="w-full">
                   <Button
                      variant="outline"
                      className="w-full border-slate-100 bg-slate-50/50 text-slate-600 hover:bg-slate-900 hover:text-white rounded-xl font-bold h-11 transition-all duration-300"

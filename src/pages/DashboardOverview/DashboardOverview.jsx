@@ -23,7 +23,7 @@ import useAuth from "@/hooks/useAuth"
 
 const DashboardOverview = () => {
    const { user } = useAuth()
-   const { data, isLoading, error } = useGetDashboardOverviewDataQuery({ id: user?._id })
+   const { data, isLoading, error } = useGetDashboardOverviewDataQuery({ id: user?.id })
 
    const getStatusColor = (status) => {
       switch (status?.toLowerCase()) {
@@ -285,7 +285,7 @@ const DashboardOverview = () => {
                      {dashboardData?.recentSentRequests?.length > 0 ? (
                         <div className="space-y-3">
                            {dashboardData.recentSentRequests.map((request) => (
-                              <div key={request._id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                              <div key={request.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                                  <div className="flex items-center gap-3">
                                     <Hospital className="h-5 w-5 text-gray-600" />
                                     <div>
@@ -329,7 +329,7 @@ const DashboardOverview = () => {
                      {dashboardData?.recentReceivedRequests?.length > 0 ? (
                         <div className="space-y-3">
                            {dashboardData.recentReceivedRequests.map((request) => (
-                              <div key={request._id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                              <div key={request.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                                  <div className="flex items-center gap-3">
                                     <Hospital className="h-5 w-5 text-gray-600" />
                                     <div>

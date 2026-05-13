@@ -45,8 +45,8 @@ const SendRequest = ({ donor }) => {
 
    const onSubmit = async (data) => {
       const payload = {
-         request_maker: user?._id,
-         donor_id: donor?.user?._id,
+         request_maker: user?.id,
+         donor_id: donor?.user?.id,
          hospital: data.hospital,
          address: data.address,
          note: data.note,

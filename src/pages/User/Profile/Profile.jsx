@@ -15,7 +15,7 @@ import { CookieManager } from "@/utils/helpers"
 
 const Profile = () => {
    const { user } = useAuth()
-   const { data: userDetails, isLoading } = useGetUserByIdQuery({ id: user?._id })
+   const { data: userDetails, isLoading } = useGetUserByIdQuery({ id: user?.id })
    const [showEditForm, setShowEditForm] = useState(false)
    const navigate = useNavigate()
    const [updateUser] = useUpdateUserMutation()
@@ -62,7 +62,7 @@ const Profile = () => {
             formData.append("image", file);
          }
          formData.append("content", JSON.stringify(userInfo));
-         const response = await updateUser({ id: userData._id, formData }).unwrap();
+         const response = await updateUser({ id: userData.id, formData }).unwrap();
          if (response?.httpStatusCode === 200) {
             if (response?.data) {
                CookieManager.setCookie("user_info", JSON.stringify(response.data));
