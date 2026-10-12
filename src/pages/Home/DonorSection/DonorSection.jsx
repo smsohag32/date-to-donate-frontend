@@ -1,6 +1,6 @@
 
 import { useState } from "react"
-import { Search, X, Filter, SlidersHorizontal, MapPin, Users2, Activity } from "lucide-react"
+import { Search, X, Filter, SlidersHorizontal, MapPin, Users2, Activity, Droplet } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import "aos/dist/aos.css"
 
@@ -87,6 +87,36 @@ const DonorSection = () => {
                highlight="Life Saver"
                subtitle="Connect with compassionate blood donors in your locality. Every donation is a gift of hope and second chance at life."
             />
+
+            {/* 1-Click Fast Blood Group Filter Pills */}
+            <div className="flex flex-wrap items-center justify-center gap-2 mb-6 max-w-4xl mx-auto">
+               <span className="text-xs font-bold text-slate-400 uppercase tracking-wider mr-2 hidden sm:inline">
+                  Quick Filter:
+               </span>
+               {bloodGroups.map((group) => {
+                  const active = selectedBloodGroup === group
+                  return (
+                     <button
+                        key={group}
+                        type="button"
+                        onClick={() => {
+                           setSelectedBloodGroup(group)
+                           setCurrentPage(0)
+                        }}
+                        className={`px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer flex items-center gap-1.5 ${
+                           active
+                              ? "bg-rose-600 text-white shadow-md shadow-rose-200 scale-105"
+                              : "bg-white text-slate-700 hover:bg-rose-50 hover:text-rose-600 border border-slate-200/80 shadow-xs"
+                        }`}
+                     >
+                        {group !== "All" && (
+                           <Droplet className={`w-3.5 h-3.5 ${active ? "fill-white text-white" : "text-rose-500 fill-rose-500"}`} />
+                        )}
+                        <span>{group === "All" ? "All Groups" : group}</span>
+                     </button>
+                  )
+               })}
+            </div>
 
             {/* Search & Filter Bar */}
             <div className="mb-12">
