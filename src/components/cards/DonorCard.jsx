@@ -1,13 +1,29 @@
+import { useState } from "react"
 import { motion } from "framer-motion"
-import { MapPin, Info, Phone, User, Calendar, Droplet } from 'lucide-react'
+import { MapPin, Info, Phone, User, Calendar, Droplet, Copy, Check } from 'lucide-react'
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
+import { toast } from "sonner"
 import CallNowButton from "../buttons/CallNowButton"
 
 const DonorCard = ({ donor }) => {
+   const [copied, setCopied] = useState(false)
    // Availability Status Logic (Simplified for demonstration)
    const isAvailable = donor?.is_available !== false; 
+
+   const handleCopyPhone = (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+      if (donor?.phone) {
+         navigator.clipboard.writeText(donor.phone)
+         setCopied(true)
+         toast.success(`Copied ${donor.phone} to clipboard!`)
+         setTimeout(() => setCopied(false), 2000)
+      } else {
+         toast.error("No phone number available")
+      }
+   } 
 
    return (
       <motion.div
@@ -90,8 +106,17 @@ const DonorCard = ({ donor }) => {
                                  {donor?.phone || "N/A"}
                               </span>
                            </div>
+                        <div className="flex items-center gap-2">
+                           <button
+                              type="button"
+                              onClick={handleCopyPhone}
+                              className="p-1.5 rounded-lg hover:bg-white text-slate-400 hover:text-rose-600 transition-colors cursor-pointer"
+                              title="Copy phone number"
+                           >
+                              {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                           </button>
+                           <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
                         </div>
-                        <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
                      </div>
                   </CallNowButton>
                </div>
