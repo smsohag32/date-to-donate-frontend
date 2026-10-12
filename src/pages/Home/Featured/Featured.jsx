@@ -91,6 +91,7 @@ const keyFeatures = [
 
 const Featured = () => {
    const [selectedType, setSelectedType] = useState("O-")
+   const [mode, setMode] = useState("donate") // "donate" | "receive"
    const currentData = bloodCompatibilities[selectedType]
 
    return (
@@ -101,8 +102,38 @@ const Featured = () => {
                badge="Smart Compatibility Matrix"
                title="Know Your Match,"
                highlight="Save Three Lives"
-               subtitle="Every blood type has superpowers. Click your blood group below to see who you can donate to and receive blood from."
+               subtitle="Every blood type has superpowers. Choose whether you're looking to donate or receive blood to see your compatible matches."
             />
+
+            {/* Mode Switcher */}
+            <div className="flex items-center justify-center mb-8">
+               <div className="bg-slate-100 p-1.5 rounded-2xl flex items-center gap-1 border border-slate-200/80 shadow-xs">
+                  <button
+                     type="button"
+                     onClick={() => setMode("donate")}
+                     className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition-all cursor-pointer flex items-center gap-2 ${
+                        mode === "donate"
+                           ? "bg-rose-600 text-white shadow-md shadow-rose-200"
+                           : "text-slate-600 hover:text-slate-900"
+                     }`}
+                  >
+                     <Heart className="w-3.5 h-3.5 fill-current" />
+                     I Want to Donate Blood
+                  </button>
+                  <button
+                     type="button"
+                     onClick={() => setMode("receive")}
+                     className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition-all cursor-pointer flex items-center gap-2 ${
+                        mode === "receive"
+                           ? "bg-rose-600 text-white shadow-md shadow-rose-200"
+                           : "text-slate-600 hover:text-slate-900"
+                     }`}
+                  >
+                     <Droplet className="w-3.5 h-3.5 fill-current" />
+                     Patient Needs Blood
+                  </button>
+               </div>
+            </div>
 
             {/* Interactive Blood Selector Chips */}
             <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-10">
@@ -128,7 +159,7 @@ const Featured = () => {
             {/* Selected Blood Type Card */}
             <AnimatePresence mode="wait">
                <motion.div
-                  key={selectedType}
+                  key={`${selectedType}-${mode}`}
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -15 }}
@@ -147,13 +178,19 @@ const Featured = () => {
                                  {currentData.badge}
                               </span>
                            </div>
-                           <p className="text-slate-500 text-sm mt-0.5">{currentData.rarity}</p>
+                           <p className="text-slate-500 text-sm mt-0.5">
+                              {mode === "donate"
+                                 ? `Donating as ${selectedType} • ${currentData.rarity}`
+                                 : `Recipient has ${selectedType} • ${currentData.rarity}`}
+                           </p>
                         </div>
                      </div>
 
-                     <Link to="/find-donor">
+                     <Link to={mode === "donate" ? "/auth/register" : "/find-donor"}>
                         <Button className="bg-slate-900 hover:bg-rose-600 text-white font-bold rounded-xl h-11 px-5 transition-all text-xs sm:text-sm">
-                           Search {selectedType} Donors →
+                           {mode === "donate"
+                              ? `Register as ${selectedType} Donor →`
+                              : `Find ${selectedType} Donors Now →`}
                         </Button>
                      </Link>
                   </div>
