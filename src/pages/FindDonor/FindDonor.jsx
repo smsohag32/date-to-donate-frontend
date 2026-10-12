@@ -7,6 +7,7 @@ import { UserRound, HeartHandshake, Award, Users, Search, MapPin, CheckCircle2, 
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { useNavigate } from "react-router-dom"
+import SectionHeader from "@/components/shared/SectionHeader"
 
 const FindDonor = () => {
    const navigate = useNavigate();
@@ -113,12 +114,12 @@ const FindDonor = () => {
          {/* How It Works Section - Redesigned */}
          <section className="py-24 bg-white relative overflow-hidden">
             <div className="main-container relative z-10">
-               <div className="text-center mb-20 space-y-4">
-                  <h2 className="text-4xl font-black text-slate-900 tracking-tight">How It Works</h2>
-                  <p className="text-slate-500 text-lg font-medium max-w-2xl mx-auto">
-                     A simple, 3-step process designed for maximum speed and efficiency in emergency situations.
-                  </p>
-               </div>
+               <SectionHeader
+                  badge="Fast Direct Match"
+                  title="How Direct Match"
+                  highlight="Works"
+                  subtitle="A simple, 3-step process designed for maximum speed and efficiency in emergency situations."
+               />
 
                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                   <motion.div 

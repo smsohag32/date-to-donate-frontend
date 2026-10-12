@@ -10,6 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { useGetRequestsByDonorQuery, useGetRequestsByUserQuery } from "@/redux-store/services/request-api"
 import useAuth from "@/hooks/useAuth"
 import { Search, MapPin, Calendar, Heart, FileText, Hospital, User, Users, Filter, RefreshCw } from "lucide-react"
+import SectionHeader from "@/components/shared/SectionHeader"
 
 const DonationRequest = () => {
    const { user } = useAuth()
@@ -152,16 +153,13 @@ const DonationRequest = () => {
       <div className="min-h-screen">
          <div className="px-5 py-4">
             {/* Header */}
-            <div className="text-center mb-8">
-               <div className="inline-flex items-center gap-2 bg-rose-50 px-4 py-2 rounded-full mb-4">
-                  <Heart className="h-5 w-5 text-rose-600" />
-                  <span className="text-sm font-medium text-rose-600">Donation Management</span>
-               </div>
-               <h1 className="text-3xl font-bold text-gray-900 mb-2">Donation Requests</h1>
-               <p className="text-gray-600 max-w-2xl mx-auto">
-                  Manage your donation requests and help save lives by connecting with those in need.
-               </p>
-            </div>
+            <SectionHeader
+               badge="Donation Management"
+               title="Manage Your"
+               highlight="Blood Requests"
+               subtitle="Manage your donation requests and help save lives by connecting with those in need."
+               className="mb-8"
+            />
 
             {/* Search and Filter */}
             <div className="bg-white rounded-lg shadow-sm border p-4 mb-6">

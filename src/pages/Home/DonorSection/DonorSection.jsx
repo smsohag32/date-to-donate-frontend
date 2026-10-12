@@ -14,6 +14,7 @@ import { PaginationControls } from "@/components/pagination/PaginationControl"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
+import SectionHeader from "@/components/shared/SectionHeader"
 
 const bloodGroups = ["All", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
 const genders = ["All", "Male", "Female", "Other"]
@@ -80,25 +81,12 @@ const DonorSection = () => {
       <section id="donor-section" className="py-24 bg-slate-50/50">
          <div className="main-container">
             {/* Header Content */}
-            <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-               <motion.h2
-                  className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight"
-                  initial={{ opacity: 0, y: -20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-               >
-                  Find a <span className="text-rose-600">Life Saver</span>
-               </motion.h2>
-               <motion.p
-                  className="text-slate-500 text-lg font-medium"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-               >
-                  Connect with compassionate donors in your community. Every donation is a gift of life.
-               </motion.p>
-            </div>
+            <SectionHeader
+               badge="Verified Donors"
+               title="Find a Community"
+               highlight="Life Saver"
+               subtitle="Connect with compassionate blood donors in your locality. Every donation is a gift of hope and second chance at life."
+            />
 
             {/* Search & Filter Bar */}
             <div className="mb-12">

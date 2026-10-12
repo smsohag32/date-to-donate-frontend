@@ -1,220 +1,347 @@
-import AppBanner from "../Home/Banner/AppBanner"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Heart, Users, Droplet, ArrowRight } from "lucide-react"
+import {
+   Heart,
+   Users,
+   Droplet,
+   ArrowRight,
+   ShieldCheck,
+   Clock,
+   Award,
+   CheckCircle2,
+   Sparkles,
+   PhoneCall,
+   MapPin,
+   Star,
+} from "lucide-react"
 import bloodDonateImage from "@/assets/about/blood-donate.webp"
 import bloodDonateImage2 from "@/assets/about/blood-donate2.webp"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import { Link } from "react-router-dom"
+import SectionHeader from "@/components/shared/SectionHeader"
+import AppBanner from "../Home/Banner/AppBanner"
+import { motion } from "framer-motion"
 
 export default function About() {
+   const [eligibilityAnswers, setEligibilityAnswers] = useState({
+      age: true,
+      weight: true,
+      health: true,
+      recent: true,
+   })
+
    const testimonials = [
       {
          id: 1,
          name: "Rahul Ahmed",
-         role: "Regular Donor",
-         image: "/placeholder.svg?height=48&width=48",
+         role: "Regular O+ Donor (14 Donations)",
+         location: "Dhaka",
          testimonial:
-            "I've been donating blood for 5 years now. The feeling of knowing my donation has helped save someone's life is indescribable.",
+            "I've been donating blood for 5 years through Dare To Donate. The feeling of knowing my donation directly helped someone during cardiac surgery is truly indescribable.",
       },
       {
          id: 2,
-         name: "Fatima Khan",
-         role: "First-time Donor",
-         image: "",
+         name: "Dr. Fatima Khan",
+         role: "Emergency Care Physician",
+         location: "Chittagong",
          testimonial:
-            "I was nervous about donating for the first time, but the team made me feel comfortable. Now I encourage all my friends to donate.",
+            "Dare To Donate has significantly shortened the frantic search for rare blood types in our emergency department. It genuinely bridges the gap between life and death.",
       },
       {
          id: 3,
          name: "Arif Hossain",
-         role: "Blood Recipient",
-         image: "/placeholder.svg?height=48&width=48",
+         role: "Blood Recipient & Lifesaver",
+         location: "Sylhet",
          testimonial:
-            "After my accident, I needed multiple transfusions. I'm alive today because of generous donors. Now I volunteer to give back.",
+            "After a road accident, I required 4 bags of B+ blood. Anonymous voluntary donors saved my life. Today, I am fully recovered and an active donor myself.",
       },
       {
          id: 4,
          name: "Priya Sharma",
-         role: "Regular Donor",
-         image: "",
+         role: "University Youth Volunteer",
+         location: "Rajshahi",
          testimonial:
-            "Donating blood is the most direct way I can help others. It costs nothing but a little time and can save multiple lives.",
+            "Organizing campus donation drives with this platform has empowered hundreds of first-time donors to conquer their fears and make regular giving a habit.",
       },
       {
          id: 5,
          name: "Mohammed Ali",
-         role: "Volunteer",
-         image: "/placeholder.svg?height=48&width=48",
+         role: "Community Organizer",
+         location: "Khulna",
          testimonial:
-            "Working with blood donation drives has shown me how a small act of kindness can create ripples of positive change in our community.",
+            "Zero commercialization, 100% voluntary compassion. That is what makes this platform trustworthy for both hospital staff and donors alike.",
       },
       {
          id: 6,
          name: "Nusrat Jahan",
-         role: "Blood Recipient",
-         image: "",
+         role: "Mother & Blood Recipient",
+         location: "Barisal",
          testimonial:
-            "During my pregnancy complications, I received blood that saved both me and my baby. I'm forever grateful to the anonymous donors.",
+            "During childbirth complications, timely blood matched through this community saved both me and my newborn baby girl. Forever grateful.",
       },
    ]
 
-   const getInitials = (name) => {
-      const names = name.split(" ")
-      if (names.length === 1) return names[0].charAt(0).toUpperCase()
-      return (names[0].charAt(0) + names[names.length - 1].charAt(0)).toUpperCase()
-   }
+   const missionPoints = [
+      {
+         icon: <Heart className="h-7 w-7 text-rose-600" />,
+         title: "Save Precious Lives",
+         desc: "One single donation can be separated into red cells, platelets, and plasma, helping up to three distinct patients in need.",
+      },
+      {
+         icon: <Users className="h-7 w-7 text-rose-600" />,
+         title: "Zero Middlemen Network",
+         desc: "We connect donors and patients directly to prevent commercial exploitation and provide immediate emergency access.",
+      },
+      {
+         icon: <Droplet className="h-7 w-7 text-rose-600" />,
+         title: "Cultivate Lifelong Giving",
+         desc: "We educate youth and communities to eliminate stigma, dispel myths, and make regular donation a celebrated civic habit.",
+      },
+   ]
 
    return (
       <div className="min-h-screen bg-white overflow-hidden">
          {/* Hero Section */}
-         <section className="relative py-16 md:py-24 bg-gradient-to-r from-red-50 to-red-100">
-            <div className="main-container">
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                  <div className="space-y-6">
-                     <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-                        Saving Lives Through <span className="text-red-600">Blood Donation</span>
+         <section className="relative py-20 lg:py-28 bg-gradient-to-b from-rose-50/60 via-white to-slate-50/30 overflow-hidden">
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-rose-100/40 rounded-full blur-[140px] pointer-events-none" />
+            <div className="main-container relative z-10">
+               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                  <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+                     <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-100 text-rose-600 font-bold text-xs uppercase tracking-wider">
+                        <Droplet className="w-3.5 h-3.5 fill-rose-500" />
+                        Our Lifesaving Mission
+                     </div>
+
+                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1]">
+                        Connecting Hope,{" "}
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-red-500 to-rose-600">
+                           One Donation
+                        </span>{" "}
+                        at a Time
                      </h1>
-                     <p className="text-lg text-gray-700">
-                        At Donate To Care, we are dedicated to saving lives by fostering a culture of compassion and unity
-                        through blood donation.
+
+                     <p className="text-lg text-slate-600 leading-relaxed max-w-xl mx-auto lg:mx-0 font-normal">
+                        Dare To Donate was founded with a singular conviction: no human life should ever be lost due to the inability to locate a compatible blood donor in time.
                      </p>
-                     <Button className="bg-red-600 hover:bg-red-700 text-white">
-                        Become a Donor <ArrowRight className="ml-2 h-4 w-4" />
-                     </Button>
+
+                     <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+                        <Link to="/auth/register">
+                           <Button className="h-14 px-8 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl shadow-xl shadow-rose-200 transition-all hover:scale-[1.02]">
+                              Join Our Movement <ArrowRight className="ml-2 h-5 w-5" />
+                           </Button>
+                        </Link>
+                        <Link to="/find-donor">
+                           <Button
+                              variant="outline"
+                              className="h-14 px-8 border-2 border-slate-200 text-slate-700 font-bold rounded-2xl hover:bg-slate-50"
+                           >
+                              Find a Donor
+                           </Button>
+                        </Link>
+                     </div>
+
+                     {/* Stats bar */}
+                     <div className="grid grid-cols-3 gap-4 pt-6 max-w-md mx-auto lg:mx-0">
+                        <div className="p-3.5 rounded-2xl bg-white border border-slate-100 shadow-sm text-center">
+                           <p className="text-2xl sm:text-3xl font-black text-rose-600">10k+</p>
+                           <p className="text-xs font-bold text-slate-400 uppercase mt-0.5">Lives Saved</p>
+                        </div>
+                        <div className="p-3.5 rounded-2xl bg-white border border-slate-100 shadow-sm text-center">
+                           <p className="text-2xl sm:text-3xl font-black text-rose-600">5.2k+</p>
+                           <p className="text-xs font-bold text-slate-400 uppercase mt-0.5">Active Donors</p>
+                        </div>
+                        <div className="p-3.5 rounded-2xl bg-white border border-slate-100 shadow-sm text-center">
+                           <p className="text-2xl sm:text-3xl font-black text-rose-600">64</p>
+                           <p className="text-xs font-bold text-slate-400 uppercase mt-0.5">Districts</p>
+                        </div>
+                     </div>
                   </div>
-                  <div className="relative">
-                     <img src={bloodDonateImage || "/placeholder.svg"} alt="Blood donation" className="" />
-                  </div>
-               </div>
-            </div>
-         </section>
 
-         {/* Mission Section */}
-         <section className="py-16 md:py-24">
-            <div className="main-container">
-               <div className="max-w-3xl mx-auto text-center mb-16">
-                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
-                  <p className="text-lg text-gray-700">
-                     Established with the vision to address the growing demand for blood in Bangladesh, our platform connects
-                     voluntary donors with those in need, ensuring that no life is lost due to a lack of blood.
-                  </p>
-               </div>
-
-               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  <Card className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300">
-                     <CardContent className="p-6 text-center">
-                        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                           <Heart className="h-8 w-8 text-red-600" />
-                        </div>
-                        <h3 className="text-xl font-semibold mb-3">Save Lives</h3>
-                        <p className="text-gray-600">
-                           Your donation can save up to three lives and bring hope to families in crisis.
-                        </p>
-                     </CardContent>
-                  </Card>
-
-                  <Card className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300">
-                     <CardContent className="p-6 text-center">
-                        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                           <Users className="h-8 w-8 text-red-600" />
-                        </div>
-                        <h3 className="text-xl font-semibold mb-3">Connect Communities</h3>
-                        <p className="text-gray-600">
-                           We bridge the gap between donors and recipients, creating a network of compassion.
-                        </p>
-                     </CardContent>
-                  </Card>
-
-                  <Card className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300">
-                     <CardContent className="p-6 text-center">
-                        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                           <Droplet className="h-8 w-8 text-red-600" />
-                        </div>
-                        <h3 className="text-xl font-semibold mb-3">Raise Awareness</h3>
-                        <p className="text-gray-600">We educate communities about the importance of regular blood donation.</p>
-                     </CardContent>
-                  </Card>
-               </div>
-            </div>
-         </section>
-
-         {/* Impact Section */}
-         <section className="py-16 md:py-24 bg-gray-50">
-            <div className="main-container">
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                  <div className="order-2 md:order-1">
-                     <img src={bloodDonateImage2 || "/placeholder.svg"} alt="Blood donation impact" className="" />
-                  </div>
-                  <div className="space-y-6 order-1 md:order-2">
-                     <h2 className="text-3xl md:text-4xl font-bold text-gray-900">The Need in Bangladesh</h2>
-                     <p className="text-lg text-gray-700">
-                        In Bangladesh, thousands of patients, including children, pregnant women, and accident victims, urgently
-                        require blood every day. Unfortunately, many struggle to find donors in time.
-                     </p>
-                     <p className="text-lg text-gray-700">
-                        By joining our initiative, you can make a direct impact and bring hope to countless lives.
-                     </p>
-                     <div className="grid grid-cols-2 gap-4 pt-4">
-                        <div className="bg-white p-4 rounded-lg shadow text-center">
-                           <p className="text-3xl font-bold text-red-600">10,000+</p>
-                           <p className="text-gray-600">Lives Saved</p>
-                        </div>
-                        <div className="bg-white p-4 rounded-lg shadow text-center">
-                           <p className="text-3xl font-bold text-red-600">5,000+</p>
-                           <p className="text-gray-600">Active Donors</p>
-                        </div>
+                  <div className="lg:col-span-5 relative">
+                     <div className="relative mx-auto max-w-[460px]">
+                        <div className="absolute inset-0 bg-rose-200/50 rounded-[3rem] blur-2xl transform rotate-3" />
+                        <img
+                           src={bloodDonateImage || "/placeholder.svg"}
+                           alt="Blood Donation Drive"
+                           className="relative z-10 w-full h-auto rounded-[2.5rem] shadow-2xl border-4 border-white object-cover"
+                        />
                      </div>
                   </div>
                </div>
             </div>
          </section>
 
-         {/* Testimonials */}
-         <section className="py-16 md:py-24">
+         {/* Mission Pillars */}
+         <section className="py-24 bg-white">
             <div className="main-container">
-               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">Donor Stories</h2>
+               <SectionHeader
+                  badge="Core Pillars"
+                  title="Why We"
+                  highlight="Dare To Care"
+                  subtitle="Every day in Bangladesh, hospitals and emergency wards face acute blood shortages. Here is how our community takes action."
+               />
 
-               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {testimonials.map((testimonial) => (
-                     <Card
-                        key={testimonial.id}
-                        className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300"
+               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {missionPoints.map((item, idx) => (
+                     <motion.div
+                        key={idx}
+                        whileHover={{ y: -8 }}
+                        transition={{ duration: 0.3 }}
+                        className="p-8 rounded-[2.5rem] bg-slate-50/80 hover:bg-white border border-slate-100 hover:border-rose-100 hover:shadow-2xl hover:shadow-rose-100/30 transition-all duration-300"
                      >
-                        <CardContent className="p-6">
-                           <div className="flex items-center mb-4">
-                              <Avatar className="h-12 w-12 mr-4 border-2 border-red-100">
-                                 {testimonial.image ? <AvatarImage src={testimonial.image} alt={testimonial.name} /> : null}
-                                 <AvatarFallback className="bg-gradient-to-br from-red-500 to-red-600 text-white">
-                                    {getInitials(testimonial.name)}
-                                 </AvatarFallback>
-                              </Avatar>
-                              <div>
-                                 <h4 className="font-semibold">{testimonial.name}</h4>
-                                 <p className="text-sm text-gray-500">{testimonial.role}</p>
-                              </div>
-                           </div>
-                           <p className="text-gray-700">{testimonial.testimonial}</p>
-                        </CardContent>
-                     </Card>
+                        <div className="w-16 h-16 rounded-2xl bg-rose-50 border border-rose-100 flex items-center justify-center mb-6">
+                           {item.icon}
+                        </div>
+                        <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-3">
+                           {item.title}
+                        </h3>
+                        <p className="text-slate-500 text-base leading-relaxed">
+                           {item.desc}
+                        </p>
+                     </motion.div>
                   ))}
                </div>
             </div>
          </section>
 
-         {/* CTA Section */}
-         <section className="py-16 md:py-24 bg-[#FF2156] text-[#ffffff]">
-            <div className="main-container text-center">
-               <h2 className="text-3xl md:text-4xl font-bold mb-6">Join Our Mission Today</h2>
-               <p className="text-xl mb-8 max-w-3xl mx-auto">
-                  Your donation can be the difference between life and death for someone in need. Register as a donor or
-                  organize a blood drive in your community.
-               </p>
-               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button className="bg-white text-red-600 hover:bg-gray-100">Register as Donor</Button>
-                  <button className="border-white border px-4  rounded-[8px] text-white hover:bg-red-700">Learn More</button>
+         {/* Interactive Eligibility Checklist */}
+         <section className="py-24 bg-slate-50/70 border-y border-slate-100">
+            <div className="main-container">
+               <SectionHeader
+                  badge="Donor Readiness"
+                  title="Can You Donate"
+                  highlight="Blood Today?"
+                  subtitle="Most healthy adults are eligible to donate. Check your basic readiness in seconds."
+               />
+
+               <div className="max-w-3xl mx-auto bg-white rounded-[2.5rem] p-8 sm:p-12 border border-slate-100 shadow-xl shadow-slate-200/50 space-y-6">
+                  <div className="space-y-4">
+                     <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex items-start gap-4">
+                        <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" />
+                        <div>
+                           <p className="font-bold text-slate-900 text-base">Age Requirement</p>
+                           <p className="text-slate-500 text-sm">You are between 18 and 60 years old (up to 65 for regular donors).</p>
+                        </div>
+                     </div>
+
+                     <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex items-start gap-4">
+                        <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" />
+                        <div>
+                           <p className="font-bold text-slate-900 text-base">Body Weight</p>
+                           <p className="text-slate-500 text-sm">You weigh at least 45 kg (99 lbs) for female donors and 50 kg for male donors.</p>
+                        </div>
+                     </div>
+
+                     <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex items-start gap-4">
+                        <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" />
+                        <div>
+                           <p className="font-bold text-slate-900 text-base">Time Interval</p>
+                           <p className="text-slate-500 text-sm">It has been at least 90 days (3 months for males, 4 months for females) since your last donation.</p>
+                        </div>
+                     </div>
+
+                     <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex items-start gap-4">
+                        <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" />
+                        <div>
+                           <p className="font-bold text-slate-900 text-base">General Well-Being</p>
+                           <p className="text-slate-500 text-sm">You feel healthy, well-rested, and are not currently on restricted antibiotics.</p>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-100">
+                     <p className="text-sm font-bold text-emerald-600 flex items-center gap-2">
+                        <ShieldCheck className="w-5 h-5" />
+                        Ready to make an impact?
+                     </p>
+                     <Link to="/auth/register" className="w-full sm:w-auto">
+                        <Button className="w-full sm:w-auto bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl h-12 px-6 shadow-md shadow-rose-200">
+                           Register as Eligible Donor
+                        </Button>
+                     </Link>
+                  </div>
                </div>
             </div>
          </section>
+
+         {/* Testimonials */}
+         <section className="py-24 bg-white">
+            <div className="main-container">
+               <SectionHeader
+                  badge="Community Voices"
+                  title="Stories of Hope &"
+                  highlight="Lifesavers"
+                  subtitle="Real individuals across Bangladesh whose courage and generosity created second chances at life."
+               />
+
+               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {testimonials.map((testimonial) => (
+                     <motion.div
+                        key={testimonial.id}
+                        whileHover={{ y: -6 }}
+                        transition={{ duration: 0.3 }}
+                        className="h-full"
+                     >
+                        <Card className="h-full border border-slate-100 bg-white rounded-3xl p-6 sm:p-8 shadow-sm hover:shadow-xl hover:shadow-rose-100/30 transition-all duration-300 flex flex-col justify-between">
+                           <div>
+                              <div className="flex gap-1 text-amber-400 mb-5">
+                                 {[...Array(5)].map((_, i) => (
+                                    <Star key={i} className="w-4 h-4 fill-amber-400" />
+                                 ))}
+                              </div>
+
+                              <p className="text-slate-700 text-base leading-relaxed italic mb-6">
+                                 "{testimonial.testimonial}"
+                              </p>
+                           </div>
+
+                           <div className="flex items-center gap-3.5 pt-4 border-t border-slate-100">
+                              <Avatar className="h-12 w-12 border-2 border-rose-100">
+                                 <AvatarFallback className="bg-rose-600 text-white font-bold text-sm">
+                                    {testimonial.name[0]}
+                                 </AvatarFallback>
+                              </Avatar>
+                              <div>
+                                 <h4 className="font-black text-slate-900 text-base">{testimonial.name}</h4>
+                                 <p className="text-xs font-semibold text-rose-600">{testimonial.role}</p>
+                                 <p className="text-[11px] text-slate-400">{testimonial.location}, Bangladesh</p>
+                              </div>
+                           </div>
+                        </Card>
+                     </motion.div>
+                  ))}
+               </div>
+            </div>
+         </section>
+
+         {/* Call to action */}
+         <section className="py-20 bg-gradient-to-r from-rose-600 to-red-600 text-white">
+            <div className="main-container text-center space-y-6">
+               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight">
+                  Be the Hero Someone is Praying For
+               </h2>
+               <p className="text-rose-100 text-lg max-w-2xl mx-auto">
+                  Blood cannot be manufactured in a laboratory. It only comes as a gift from one human being to another.
+               </p>
+               <div className="pt-2 flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link to="/auth/register">
+                     <Button className="h-14 px-8 bg-white hover:bg-slate-100 text-rose-600 font-extrabold rounded-2xl shadow-xl transition-all">
+                        Register as Donor Today
+                     </Button>
+                  </Link>
+                  <Link to="/contact-us">
+                     <Button
+                        variant="outline"
+                        className="h-14 px-8 border-2 border-white/60 text-white hover:bg-white/10 font-bold rounded-2xl"
+                     >
+                        Contact Our Team
+                     </Button>
+                  </Link>
+               </div>
+            </div>
+         </section>
+
          <AppBanner />
       </div>
    )

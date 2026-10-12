@@ -63,6 +63,15 @@ const DashboardOverview = () => {
       })
    }
 
+   const formatFullDate = (dateString) => {
+      if (!dateString) return "N/A";
+      return new Date(dateString).toLocaleDateString("en-US", {
+         month: "long",
+         day: "numeric",
+         year: "numeric",
+      })
+   }
+
    const calculateSuccessRate = () => {
       if (!data?.data) return 0
       const total = data.data.totalSentRequests
@@ -112,63 +121,129 @@ const DashboardOverview = () => {
    const dashboardData = data?.data
 
    return (
-      <div className="min-h-screen bg-gray-50">
-         <div className=" px-4 py-4">
+      <div className="min-h-screen bg-gray-50 pb-12">
+         {/* Top Hero Section */}
+         <div className="bg-white border-b px-4 md:px-8 py-8 mb-8 shadow-sm">
+            <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+               <div>
+                  <h1 className="text-3xl font-bold text-gray-900">Welcome back, {user?.name || "Hero"}!</h1>
+                  <p className="text-gray-500 mt-1">Here's your donation impact and current status.</p>
+               </div>
+               <div className="flex flex-wrap gap-3">
+                  <div className="bg-rose-50 text-rose-700 px-5 py-3 rounded-xl flex items-center gap-3 border border-rose-100">
+                     <Droplets className="h-6 w-6" />
+                     <div>
+                        <p className="text-xs font-semibold uppercase tracking-wider text-rose-600">Blood Group</p>
+                        <p className="text-lg font-bold leading-none mt-1">{dashboardData?.bloodGroup || "O+"}</p>
+                     </div>
+                  </div>
+                  <div className={`px-5 py-3 rounded-xl flex items-center gap-3 border ${dashboardData?.availableToDonate !== false ? 'bg-emerald-50 text-emerald-700 border-emerald-100' : 'bg-amber-50 text-amber-700 border-amber-100'}`}>
+                     {dashboardData?.availableToDonate !== false ? <CheckCircle className="h-6 w-6" /> : <Clock className="h-6 w-6" />}
+                     <div>
+                        <p className={`text-xs font-semibold uppercase tracking-wider ${dashboardData?.availableToDonate !== false ? 'text-emerald-600' : 'text-amber-600'}`}>Status</p>
+                        <p className="text-sm font-bold leading-none mt-1">{dashboardData?.availableToDonate !== false ? 'Eligible to Donate' : 'In Recovery Period'}</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
 
+         <div className="max-w-7xl mx-auto px-4 md:px-8">
+            {/* Impact Row */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+               <Card className="bg-gradient-to-br from-rose-500 to-rose-600 text-white border-none shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                  <CardContent className="p-6">
+                     <div className="flex justify-between items-start">
+                        <div>
+                           <p className="text-rose-100 font-medium">Lives Saved</p>
+                           <h2 className="text-4xl font-bold mt-1">{dashboardData?.livesSaved || 0}</h2>
+                           <p className="text-sm text-rose-100 mt-2">Every drop counts towards saving a life.</p>
+                        </div>
+                        <div className="bg-white/20 p-3 rounded-full">
+                           <Heart className="h-8 w-8 text-white" />
+                        </div>
+                     </div>
+                  </CardContent>
+               </Card>
+               
+               <Card className="shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <CardContent className="p-6 flex items-center gap-5">
+                     <div className="bg-blue-50 p-4 rounded-full text-blue-600">
+                        <Calendar className="h-8 w-8" />
+                     </div>
+                     <div>
+                        <p className="text-sm text-gray-500 font-medium">Last Donation Date</p>
+                        <h3 className="text-xl font-bold text-gray-900 mt-1">{dashboardData?.lastDonationDate ? formatFullDate(dashboardData.lastDonationDate) : "No record"}</h3>
+                     </div>
+                  </CardContent>
+               </Card>
+
+               <Card className="shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <CardContent className="p-6 flex items-center gap-5">
+                     <div className="bg-purple-50 p-4 rounded-full text-purple-600">
+                        <Activity className="h-8 w-8" />
+                     </div>
+                     <div>
+                        <p className="text-sm text-gray-500 font-medium">Next Eligible Date</p>
+                        <h3 className="text-xl font-bold text-gray-900 mt-1">{dashboardData?.nextEligibleDate ? formatFullDate(dashboardData.nextEligibleDate) : "Ready Now!"}</h3>
+                     </div>
+                  </CardContent>
+               </Card>
+            </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-               <Card className="hover:shadow-lg transition-shadow">
-                  <CardContent className="">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+               <Card className="shadow-sm hover:shadow-md transition-shadow border-slate-100">
+                  <CardContent className="p-6">
                      <div className="flex items-center justify-between">
                         <div>
-                           <p className="text-sm font-medium text-gray-600">Sent Requests</p>
-                           <p className="text-3xl font-bold text-gray-900">{dashboardData?.totalSentRequests || 0}</p>
+                           <p className="text-sm font-medium text-gray-500">Sent Requests</p>
+                           <p className="text-3xl font-bold text-gray-900 mt-1">{dashboardData?.totalSentRequests || 0}</p>
                         </div>
-                        <div className="p-3 bg-blue-50 rounded-lg">
-                           <Send className="h-6 w-6 text-blue-600" />
+                        <div className="p-3 bg-slate-50 border border-slate-100 rounded-xl">
+                           <Send className="h-6 w-6 text-slate-600" />
                         </div>
                      </div>
                   </CardContent>
                </Card>
 
-               <Card className="hover:shadow-lg transition-shadow">
-                  <CardContent className="">
+               <Card className="shadow-sm hover:shadow-md transition-shadow border-slate-100">
+                  <CardContent className="p-6">
                      <div className="flex items-center justify-between">
                         <div>
-                           <p className="text-sm font-medium text-gray-600">Received Requests</p>
-                           <p className="text-3xl font-bold text-gray-900">{dashboardData?.totalReceivedRequests || 0}</p>
+                           <p className="text-sm font-medium text-gray-500">Received Requests</p>
+                           <p className="text-3xl font-bold text-gray-900 mt-1">{dashboardData?.totalReceivedRequests || 0}</p>
                         </div>
-                        <div className="p-3 bg-green-50 rounded-lg">
-                           <Inbox className="h-6 w-6 text-green-600" />
+                        <div className="p-3 bg-slate-50 border border-slate-100 rounded-xl">
+                           <Inbox className="h-6 w-6 text-slate-600" />
                         </div>
                      </div>
                   </CardContent>
                </Card>
 
-               <Card className="hover:shadow-lg transition-shadow">
-                  <CardContent className="">
+               <Card className="shadow-sm hover:shadow-md transition-shadow border-slate-100">
+                  <CardContent className="p-6">
                      <div className="flex items-center justify-between">
                         <div>
-                           <p className="text-sm font-medium text-gray-600">Successful Donations</p>
-                           <p className="text-3xl font-bold text-gray-900">{dashboardData?.donated || 0}</p>
+                           <p className="text-sm font-medium text-gray-500">Successful Donations</p>
+                           <p className="text-3xl font-bold text-gray-900 mt-1">{dashboardData?.donated || 0}</p>
                         </div>
-                        <div className="p-3 bg-rose-50 rounded-lg">
-                           <Heart className="h-6 w-6 text-rose-600" />
+                        <div className="p-3 bg-rose-50 border border-rose-100 rounded-xl">
+                           <Droplets className="h-6 w-6 text-rose-600" />
                         </div>
                      </div>
                   </CardContent>
                </Card>
 
-               <Card className="hover:shadow-lg transition-shadow">
-                  <CardContent className="">
+               <Card className="shadow-sm hover:shadow-md transition-shadow border-slate-100">
+                  <CardContent className="p-6">
                      <div className="flex items-center justify-between">
                         <div>
-                           <p className="text-sm font-medium text-gray-600">Success Rate</p>
-                           <p className="text-3xl font-bold text-gray-900">{calculateSuccessRate()}%</p>
+                           <p className="text-sm font-medium text-gray-500">Success Rate</p>
+                           <p className="text-3xl font-bold text-gray-900 mt-1">{calculateSuccessRate()}%</p>
                         </div>
-                        <div className="p-3 bg-purple-50 rounded-lg">
-                           <TrendingUp className="h-6 w-6 text-purple-600" />
+                        <div className="p-3 bg-emerald-50 border border-emerald-100 rounded-xl">
+                           <TrendingUp className="h-6 w-6 text-emerald-600" />
                         </div>
                      </div>
                   </CardContent>
@@ -176,10 +251,10 @@ const DashboardOverview = () => {
             </div>
 
             {/* Status Overview */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
-               <Card>
-                  <CardHeader>
-                     <CardTitle className="flex items-center gap-2">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+               <Card className="shadow-sm border-slate-100">
+                  <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
+                     <CardTitle className="flex items-center gap-2 text-lg">
                         <Activity className="h-5 w-5 text-rose-600" />
                         Request Status Overview
                      </CardTitle>
@@ -224,11 +299,11 @@ const DashboardOverview = () => {
                </Card>
 
                {/* Progress Chart */}
-               <Card>
-                  <CardHeader>
-                     <CardTitle className="flex items-center gap-2">
+               <Card className="shadow-sm border-slate-100">
+                  <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
+                     <CardTitle className="flex items-center gap-2 text-lg">
                         <TrendingUp className="h-5 w-5 text-rose-600" />
-                        Impact Summary
+                        Activity Summary
                      </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -267,11 +342,11 @@ const DashboardOverview = () => {
             </div>
 
             {/* Recent Activity */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                {/* Recent Sent Requests */}
-               <Card>
-                  <CardHeader>
-                     <CardTitle className="flex items-center justify-between">
+               <Card className="shadow-sm border-slate-100">
+                  <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
+                     <CardTitle className="flex items-center justify-between text-lg">
                         <div className="flex items-center gap-2">
                            <Send className="h-5 w-5 text-rose-600" />
                            Recent Sent Requests
@@ -283,23 +358,28 @@ const DashboardOverview = () => {
                   </CardHeader>
                   <CardContent>
                      {dashboardData?.recentSentRequests?.length > 0 ? (
-                        <div className="space-y-3">
+                        <div className="space-y-4">
                            {dashboardData.recentSentRequests.map((request) => (
-                              <div key={request.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                                 <div className="flex items-center gap-3">
-                                    <Hospital className="h-5 w-5 text-gray-600" />
+                              <div key={request.id} className="flex items-center justify-between p-4 bg-white border border-slate-100 hover:border-slate-200 hover:shadow-sm transition-all rounded-xl">
+                                 <div className="flex items-center gap-4">
+                                    <div className="h-10 w-10 bg-slate-50 rounded-full flex items-center justify-center shrink-0">
+                                       <Hospital className="h-5 w-5 text-slate-500" />
+                                    </div>
                                     <div>
-                                       <p className="font-medium text-gray-900">{request.hospital}</p>
-                                       <div className="flex items-center gap-1 text-sm text-gray-500">
-                                          <Calendar className="h-3 w-3" />
+                                       <p className="font-semibold text-gray-900">{request.hospital}</p>
+                                       <div className="flex items-center gap-1 text-sm text-gray-500 mt-0.5">
+                                          <Calendar className="h-3.5 w-3.5" />
                                           {formatDate(request.createdAt)}
                                        </div>
                                     </div>
                                  </div>
-                                 <Badge className={getStatusColor(request.status)}>
-                                    {getStatusIcon(request.status)}
-                                    <span className="ml-1 capitalize">{request.status}</span>
-                                 </Badge>
+                                 <div className="flex flex-col items-end gap-1.5">
+                                    <Badge className={getStatusColor(request.status)}>
+                                       {getStatusIcon(request.status)}
+                                       <span className="ml-1 capitalize">{request.status}</span>
+                                    </Badge>
+                                    <span className="text-[10px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-sm uppercase tracking-wider">{request.blood_group}</span>
+                                 </div>
                               </div>
                            ))}
                         </div>
@@ -313,9 +393,9 @@ const DashboardOverview = () => {
                </Card>
 
                {/* Recent Received Requests */}
-               <Card>
-                  <CardHeader>
-                     <CardTitle className="flex items-center justify-between">
+               <Card className="shadow-sm border-slate-100">
+                  <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-4">
+                     <CardTitle className="flex items-center justify-between text-lg">
                         <div className="flex items-center gap-2">
                            <Inbox className="h-5 w-5 text-rose-600" />
                            Recent Received Requests
@@ -327,23 +407,28 @@ const DashboardOverview = () => {
                   </CardHeader>
                   <CardContent>
                      {dashboardData?.recentReceivedRequests?.length > 0 ? (
-                        <div className="space-y-3">
+                        <div className="space-y-4">
                            {dashboardData.recentReceivedRequests.map((request) => (
-                              <div key={request.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                                 <div className="flex items-center gap-3">
-                                    <Hospital className="h-5 w-5 text-gray-600" />
+                              <div key={request.id} className="flex items-center justify-between p-4 bg-white border border-slate-100 hover:border-slate-200 hover:shadow-sm transition-all rounded-xl">
+                                 <div className="flex items-center gap-4">
+                                    <div className="h-10 w-10 bg-slate-50 rounded-full flex items-center justify-center shrink-0">
+                                       <Hospital className="h-5 w-5 text-slate-500" />
+                                    </div>
                                     <div>
-                                       <p className="font-medium text-gray-900">{request.hospital}</p>
-                                       <div className="flex items-center gap-1 text-sm text-gray-500">
-                                          <Calendar className="h-3 w-3" />
+                                       <p className="font-semibold text-gray-900">{request.hospital}</p>
+                                       <div className="flex items-center gap-1 text-sm text-gray-500 mt-0.5">
+                                          <Calendar className="h-3.5 w-3.5" />
                                           {formatDate(request.createdAt)}
                                        </div>
                                     </div>
                                  </div>
-                                 <Badge className={getStatusColor(request.status)}>
-                                    {getStatusIcon(request.status)}
-                                    <span className="ml-1 capitalize">{request.status}</span>
-                                 </Badge>
+                                 <div className="flex flex-col items-end gap-1.5">
+                                    <Badge className={getStatusColor(request.status)}>
+                                       {getStatusIcon(request.status)}
+                                       <span className="ml-1 capitalize">{request.status}</span>
+                                    </Badge>
+                                    <span className="text-[10px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-sm uppercase tracking-wider">{request.blood_group}</span>
+                                 </div>
                               </div>
                            ))}
                         </div>

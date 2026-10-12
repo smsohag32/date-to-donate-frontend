@@ -1,31 +1,32 @@
-
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
-import { Mail, Lock } from "lucide-react"
-import { Link, NavLink, useNavigate } from "react-router-dom"
-import LogoRegular from "@/assets/logo/LogoRegular"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Mail, Lock, Droplet, ArrowRight, ShieldCheck, Heart, Sparkles } from "lucide-react"
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { loginUser } from "@/redux-store/slices/auth-slice"
 import { toast } from "sonner"
 import GoogleLogin from "./GoogleLogin"
 import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import { motion } from "framer-motion"
 
 const formSchema = z.object({
    email: z.string().email({ message: "Please enter a valid email address" }),
-   password: z.string().min(8, { message: "Password must be at least 8 characters" }),
+   password: z.string().min(6, { message: "Password must be at least 6 characters" }),
 })
 
 const Login = () => {
    const [isLoading, setIsLoading] = useState(false)
    const dispatch = useDispatch()
    const navigate = useNavigate()
+   const location = useLocation()
    const from = location.state?.from?.pathname || "/dashboard"
+
    const form = useForm({
       resolver: zodResolver(formSchema),
       defaultValues: {
@@ -34,43 +35,55 @@ const Login = () => {
       },
    })
 
-
-
    const onSubmit = async (data) => {
-      const { email, password } = data;
-      setIsLoading(true);
+      const { email, password } = data
+      setIsLoading(true)
       try {
-         const isSocial = false;
-         const credentials = { email, password };
-         await dispatch(loginUser({ credentials, isSocial })).unwrap(); // ✅ fix
-         toast.success("Login successful!");
-         navigate(from, { replace: true });
+         const isSocial = false
+         const credentials = { email, password }
+         await dispatch(loginUser({ credentials, isSocial })).unwrap()
+         toast.success("Welcome back! Login successful.")
+         navigate(from, { replace: true })
       } catch (error) {
-         console.error("Login failed:", error);
-         const errorMessage = typeof error === "string" ? error : error?.message || "Login failed. Please try again.";
-         toast.error(errorMessage);
+         console.error("Login failed:", error)
+         const errorMessage = typeof error === "string" ? error : error?.message || "Login failed. Please check credentials."
+         toast.error(errorMessage)
       } finally {
-         setIsLoading(false);
+         setIsLoading(false)
       }
-   };
-
+   }
 
    return (
-      <div className="min-h-screen py-8 px-0 w-full  md:py-16  flex items-center justify-center">
-         <div className="main-container">
-            <Card className="bg-[#FFFFFF] justify-center items-center w-full px-7 pb-14 pt-8 max-w-[480px]  flex mx-auto flex-col gap-4 rounded-[10px] ">
-               <div className="font-bold text-lg mb-4">
-                  <NavLink to="/" className="flex flex-col gap-2 items-center mt-3 space-x-2">
-                     <LogoRegular className="w-10" />   <p><span className="text-[#FF2156] tracking-tighter font-medium text-lg ">Dare </span>
-                        <span className='text-[#595959] font-normal'>To</span>   <span className="text-[#FF2156] tracking-tighter font-medium text-lg ">  Donate</span></p>
-                  </NavLink>
+      <div className="min-h-[90vh] py-12 px-4 flex items-center justify-center bg-gradient-to-b from-rose-50/50 via-white to-slate-50/50 relative overflow-hidden">
+         {/* Atmospheric subtle glow */}
+         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-rose-200/40 rounded-full blur-[140px] pointer-events-none" />
 
-                  <p className="text-gray-700 font-semibold text-[24px] text-center mt-4">Log in</p>
-               </div>
+         <div className="w-full max-w-md relative z-10">
+            <motion.div
+               initial={{ opacity: 0, y: 20 }}
+               animate={{ opacity: 1, y: 0 }}
+               transition={{ duration: 0.5 }}
+            >
+               <Card className="bg-white/95 backdrop-blur-xl border border-slate-100 shadow-2xl shadow-rose-900/10 rounded-[2.5rem] p-8 sm:p-10">
+                  {/* Brand Header */}
+                  <div className="text-center space-y-3 mb-8">
+                     <NavLink to="/" className="inline-flex items-center gap-2.5 mx-auto">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-rose-600 to-red-500 text-white flex items-center justify-center shadow-lg shadow-rose-200">
+                           <Droplet className="w-6 h-6 fill-white" />
+                        </div>
+                     </NavLink>
 
-               <Separator className={"mb-4"} />
-               {/* Login Form */}
-               <div className="w-full max-w-md">
+                     <div>
+                        <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                           Welcome Back
+                        </h1>
+                        <p className="text-slate-500 text-sm font-medium mt-1">
+                           Log in to access your donor dashboard & alerts
+                        </p>
+                     </div>
+                  </div>
+
+                  {/* Form */}
                   <Form {...form}>
                      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                         <FormField
@@ -78,19 +91,20 @@ const Login = () => {
                            name="email"
                            render={({ field }) => (
                               <FormItem>
-                                 <div className="flex items-center  border bg-gray-50 rounded-md">
-                                    <div className="px-3 py-2">
-                                       <Mail color="#FF2156" className="h-5 w-5 text-gray-400" />
-                                    </div>
+                                 <FormLabel className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                                    Email Address
+                                 </FormLabel>
+                                 <div className="relative">
+                                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                                     <FormControl>
                                        <Input
-                                          placeholder="Email"
-                                          className="border-0 py-5 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                                          placeholder="name@example.com"
+                                          className="h-12 pl-11 bg-slate-50 border-slate-200 rounded-xl focus-visible:ring-rose-500 font-medium"
                                           {...field}
                                        />
                                     </FormControl>
                                  </div>
-                                 <FormMessage className="text-xs mt-1" />
+                                 <FormMessage className="text-xs text-rose-500 font-semibold" />
                               </FormItem>
                            )}
                         />
@@ -100,56 +114,68 @@ const Login = () => {
                            name="password"
                            render={({ field }) => (
                               <FormItem>
-                                 <div className="flex items-center border bg-gray-50 rounded-md">
-                                    <div className="px-3 py-2">
-                                       <Lock color="#FF2156" className="h-5 w-5 text-gray-400" />
-                                    </div>
+                                 <div className="flex items-center justify-between">
+                                    <FormLabel className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                                       Password
+                                    </FormLabel>
+                                    <Link
+                                       to="/forgot-password"
+                                       className="text-xs font-bold text-rose-600 hover:text-rose-700"
+                                    >
+                                       Forgot?
+                                    </Link>
+                                 </div>
+                                 <div className="relative">
+                                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                                     <FormControl>
                                        <Input
                                           type="password"
-                                          placeholder="Password"
-                                          className="border-0 py-5 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                                          placeholder="••••••••"
+                                          className="h-12 pl-11 bg-slate-50 border-slate-200 rounded-xl focus-visible:ring-rose-500 font-medium"
                                           {...field}
                                        />
                                     </FormControl>
                                  </div>
-                                 <FormMessage className="text-xs mt-1" />
+                                 <FormMessage className="text-xs text-rose-500 font-semibold" />
                               </FormItem>
                            )}
                         />
 
                         <Button
                            type="submit"
-                           className="w-full bg-[#ff3366] cursor-pointer hover:bg-[#e62e5c] text-white font-medium py-6"
-                           disabled={isLoading || !form.formState.isValid}
+                           disabled={isLoading}
+                           className="w-full h-12 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl shadow-lg shadow-rose-200 transition-all text-sm mt-2"
                         >
-                           {isLoading ? "LOGGING IN..." : "LOG IN"}
+                           {isLoading ? "Signing in..." : "Sign In to Account"}
+                           <ArrowRight className="w-4 h-4 ml-1.5" />
                         </Button>
                      </form>
                   </Form>
 
-                  <div className="mt-4 text-center">
-                     <Link to="/forgot-password" className="text-[#ff3366] text-sm hover:underline">
-                        Forgot Password?
-                     </Link>
+                  <div className="relative my-6">
+                     <div className="absolute inset-0 flex items-center">
+                        <Separator />
+                     </div>
+                     <div className="relative flex justify-center text-xs uppercase">
+                        <span className="bg-white px-3 text-slate-400 font-bold tracking-wider">
+                           Or continue with
+                        </span>
+                     </div>
                   </div>
 
-                  <div className="mt-10 text-center text-gray-600">
-                     Don&apos;t have an account?{" "}
-                     <Link to="/auth/register" className="text-[#ff3366] font-medium hover:underline">
-                        Register Now
+                  <GoogleLogin />
+
+                  <div className="mt-8 text-center text-xs text-slate-500">
+                     Don't have a donor account?{" "}
+                     <Link to="/auth/register" className="text-rose-600 font-bold hover:underline">
+                        Register as Donor
                      </Link>
-                     .
                   </div>
-                  <div>
-                     <GoogleLogin />
-                  </div>
-               </div>
-            </Card>
+               </Card>
+            </motion.div>
          </div>
       </div>
    )
 }
 
 export default Login
-
