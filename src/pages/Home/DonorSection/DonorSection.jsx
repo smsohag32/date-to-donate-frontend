@@ -1,5 +1,6 @@
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useSearchParams } from "react-router-dom"
 import { Search, X, Filter, SlidersHorizontal, MapPin, Users2, Activity, Droplet } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import "aos/dist/aos.css"
@@ -21,12 +22,20 @@ const genders = ["All", "Male", "Female", "Other"]
 const availabilityOptions = ["All", "Available", "On Break"]
 
 const DonorSection = () => {
-   const [searchText, setSearchText] = useState("")
+   const [searchParams] = useSearchParams()
+   const [searchText, setSearchText] = useState(searchParams.get("searchText") || "")
    const [isFilterOpen, setIsFilterOpen] = useState(false)
-   const [selectedBloodGroup, setSelectedBloodGroup] = useState("All")
+   const [selectedBloodGroup, setSelectedBloodGroup] = useState(searchParams.get("blood_group") || "All")
    const [selectedGender, setSelectedGender] = useState("All")
    const [availability, setAvailability] = useState("All")
    const [currentPage, setCurrentPage] = useState(0)
+
+   useEffect(() => {
+      const bg = searchParams.get("blood_group")
+      const st = searchParams.get("searchText")
+      if (bg) setSelectedBloodGroup(bg)
+      if (st !== null) setSearchText(st)
+   }, [searchParams])
 
    const { data, isLoading, isFetching } = useGetDonorsQuery({
       page: currentPage,

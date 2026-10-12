@@ -21,13 +21,10 @@ const Hero = () => {
 
    const handleHeroSearch = (e) => {
       e.preventDefault()
-      // Scroll to donor section or pass filters
-      const donorSection = document.getElementById("donor-section")
-      if (donorSection) {
-         donorSection.scrollIntoView({ behavior: "smooth" })
-      } else {
-         navigate("/find-donor")
-      }
+      const params = new URLSearchParams()
+      if (selectedGroup) params.set("blood_group", selectedGroup)
+      if (selectedLocation) params.set("searchText", selectedLocation)
+      navigate(`/find-donor?${params.toString()}`)
    }
 
    return (
