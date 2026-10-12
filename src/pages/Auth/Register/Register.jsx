@@ -5,7 +5,7 @@ import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Mail, Lock, User, Phone, MapPin, Droplet, Heart, ShieldCheck, ArrowRight } from "lucide-react"
+import { Mail, Lock, User, Phone, MapPin, Droplet, Heart, ShieldCheck, ArrowRight, Eye, EyeOff } from "lucide-react"
 import { Link, NavLink, useNavigate } from "react-router-dom"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent } from "@/components/ui/card"
@@ -27,6 +27,7 @@ const formSchema = z.object({
 })
 
 const Register = () => {
+   const [showPassword, setShowPassword] = useState(false)
    const [registerUser, { isLoading }] = useRegisterUserMutation()
    const navigate = useNavigate()
    const form = useForm({
@@ -251,12 +252,20 @@ const Register = () => {
                                     <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                                     <FormControl>
                                        <Input
-                                          type="password"
+                                          type={showPassword ? "text" : "password"}
                                           placeholder="At least 6 characters"
-                                          className="h-12 pl-11 bg-slate-50 border-slate-200 rounded-xl focus-visible:ring-rose-500 font-medium"
+                                          className="h-12 pl-11 pr-11 bg-slate-50 border-slate-200 rounded-xl focus-visible:ring-rose-500 font-medium"
                                           {...field}
                                        />
                                     </FormControl>
+                                    <button
+                                       type="button"
+                                       onClick={() => setShowPassword(!showPassword)}
+                                       className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
+                                       aria-label={showPassword ? "Hide password" : "Show password"}
+                                    >
+                                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                                    </button>
                                  </div>
                                  <FormMessage className="text-xs text-rose-500" />
                               </FormItem>

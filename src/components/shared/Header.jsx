@@ -57,11 +57,11 @@ const Header = () => {
 
                      <div className="flex items-center gap-4 text-[12px]">
                         <a
-                           href="tel:+8801800366283"
+                           href="tel:01540042699"
                            className="flex items-center gap-1.5 text-rose-400 hover:text-rose-300 font-semibold transition-colors"
                         >
                            <PhoneCall className="w-3.5 h-3.5" />
-                           <span>Hotline: +880 (1800) DONATE</span>
+                           <span>Hotline: 01540042699</span>
                         </a>
                         <button
                            onClick={() => setShowTopBar(false)}
@@ -217,10 +217,10 @@ function MobileNav({ user, navigate }) {
                   Call directly for urgent hospital blood match requests.
                </p>
                <a
-                  href="tel:+8801800366283"
+                  href="tel:01540042699"
                   className="mt-2 inline-block text-xs font-extrabold text-rose-600 hover:underline"
                >
-                  +880 1800-DONATE
+                  01540042699
                </a>
             </div>
 

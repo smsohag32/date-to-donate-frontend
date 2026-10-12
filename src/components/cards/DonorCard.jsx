@@ -106,6 +106,7 @@ const DonorCard = ({ donor }) => {
                                  {donor?.phone || "N/A"}
                               </span>
                            </div>
+                        </div>
                         <div className="flex items-center gap-2">
                            <button
                               type="button"

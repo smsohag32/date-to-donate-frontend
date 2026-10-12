@@ -71,11 +71,11 @@ export default function Contact() {
                   </div>
                </div>
                <a
-                  href="tel:+8801800366283"
+                  href="tel:01540042699"
                   className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-sm shadow-md transition-all shrink-0 flex items-center gap-2"
                >
                   <Phone className="w-4 h-4" />
-                  Call: +880 (1800) DONATE
+                  Call: 01540042699
                </a>
             </div>
          </div>
@@ -224,8 +224,8 @@ export default function Contact() {
                               </div>
                               <div>
                                  <p className="font-extrabold text-slate-900 text-sm">Emergency Hotlines</p>
-                                 <p className="text-rose-600 font-bold text-sm mt-0.5">+880 (1800) DONATE</p>
-                                 <p className="text-slate-500 text-xs">+880 1700-000000 (Central Helpline)</p>
+                                 <a href="tel:01540042699" className="text-rose-600 font-bold text-sm mt-0.5 hover:underline block">01540042699</a>
+                                 <p className="text-slate-500 text-xs">24/7 Dedicated Emergency Helpline</p>
                               </div>
                            </div>
 

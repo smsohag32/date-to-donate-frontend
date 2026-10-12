@@ -49,7 +49,7 @@ const FloatingEmergencyBar = () => {
 
                   <div className="py-3 space-y-2">
                      <a
-                        href="tel:+8801800366283"
+                        href="tel:01540042699"
                         className="flex items-center gap-3 p-3 rounded-2xl bg-rose-50 hover:bg-rose-100/80 border border-rose-100 text-rose-700 transition-all group"
                      >
                         <div className="w-9 h-9 rounded-xl bg-rose-600 text-white flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform">
@@ -60,7 +60,7 @@ const FloatingEmergencyBar = () => {
                               Direct 24/7 Hotline
                            </p>
                            <p className="text-xs font-extrabold text-slate-900 mt-1">
-                              +880 (1800) DONATE
+                              01540042699
                            </p>
                         </div>
                      </a>
