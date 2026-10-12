@@ -216,44 +216,89 @@ export default function About() {
                />
 
                <div className="max-w-3xl mx-auto bg-white rounded-[2.5rem] p-8 sm:p-12 border border-slate-100 shadow-xl shadow-slate-200/50 space-y-6">
-                  <div className="space-y-4">
-                     <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex items-start gap-4">
-                        <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" />
-                        <div>
-                           <p className="font-bold text-slate-900 text-base">Age Requirement</p>
-                           <p className="text-slate-500 text-sm">You are between 18 and 60 years old (up to 65 for regular donors).</p>
-                        </div>
-                     </div>
-
-                     <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex items-start gap-4">
-                        <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" />
-                        <div>
-                           <p className="font-bold text-slate-900 text-base">Body Weight</p>
-                           <p className="text-slate-500 text-sm">You weigh at least 45 kg (99 lbs) for female donors and 50 kg for male donors.</p>
-                        </div>
-                     </div>
-
-                     <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex items-start gap-4">
-                        <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" />
-                        <div>
-                           <p className="font-bold text-slate-900 text-base">Time Interval</p>
-                           <p className="text-slate-500 text-sm">It has been at least 90 days (3 months for males, 4 months for females) since your last donation.</p>
-                        </div>
-                     </div>
-
-                     <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex items-start gap-4">
-                        <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" />
-                        <div>
-                           <p className="font-bold text-slate-900 text-base">General Well-Being</p>
-                           <p className="text-slate-500 text-sm">You feel healthy, well-rested, and are not currently on restricted antibiotics.</p>
-                        </div>
-                     </div>
+                  <div className="space-y-3">
+                     {[
+                        {
+                           id: "age",
+                           title: "Age Requirement (18–60 Years)",
+                           desc: "You are between 18 and 60 years old (up to 65 for regular, frequent donors).",
+                        },
+                        {
+                           id: "weight",
+                           title: "Minimum Body Weight",
+                           desc: "You weigh at least 45 kg (99 lbs) for female donors and 50 kg for male donors.",
+                        },
+                        {
+                           id: "recent",
+                           title: "Donation Recovery Interval",
+                           desc: "At least 90 days (3 months for males, 4 months for females) have elapsed since your last donation.",
+                        },
+                        {
+                           id: "health",
+                           title: "General Physical Health",
+                           desc: "You are feeling well, well-hydrated, and not currently suffering from acute fever or infection.",
+                        },
+                     ].map((check) => {
+                        const isChecked = eligibilityAnswers[check.id]
+                        return (
+                           <button
+                              key={check.id}
+                              type="button"
+                              onClick={() =>
+                                 setEligibilityAnswers((prev) => ({
+                                    ...prev,
+                                    [check.id]: !prev[check.id],
+                                 }))
+                              }
+                              className={`w-full text-left p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer flex items-start gap-4 ${
+                                 isChecked
+                                    ? "bg-emerald-50/70 border-emerald-200 shadow-xs"
+                                    : "bg-slate-50 border-slate-200/80 hover:bg-slate-100/70"
+                              }`}
+                           >
+                              <div
+                                 className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
+                                    isChecked
+                                       ? "bg-emerald-500 text-white"
+                                       : "bg-white border-2 border-slate-300 text-transparent"
+                                 }`}
+                              >
+                                 <CheckCircle2 className="w-4 h-4" />
+                              </div>
+                              <div className="flex-1">
+                                 <p className="font-bold text-slate-900 text-sm sm:text-base">
+                                    {check.title}
+                                 </p>
+                                 <p className="text-slate-500 text-xs sm:text-sm mt-0.5">
+                                    {check.desc}
+                                 </p>
+                              </div>
+                           </button>
+                        )
+                     })}
                   </div>
 
-                  <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-100">
-                     <p className="text-sm font-bold text-emerald-600 flex items-center gap-2">
-                        <ShieldCheck className="w-5 h-5" />
-                        Ready to make an impact?
+                  {/* Dynamic Eligibility Feedback */}
+                  {Object.values(eligibilityAnswers).every(Boolean) ? (
+                     <div className="p-4 rounded-2xl bg-emerald-100/80 border border-emerald-200 text-emerald-900 flex items-center gap-3">
+                        <Sparkles className="w-5 h-5 text-emerald-600 shrink-0" />
+                        <p className="text-sm font-bold">
+                           🎉 Excellent! You satisfy all core health criteria to donate blood and save up to 3 lives!
+                        </p>
+                     </div>
+                  ) : (
+                     <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 flex items-center gap-3">
+                        <Clock className="w-5 h-5 text-amber-600 shrink-0" />
+                        <p className="text-sm font-semibold">
+                           {Object.values(eligibilityAnswers).filter(Boolean).length}/4 criteria confirmed. Please ensure all conditions are met before attending a blood donation session.
+                        </p>
+                     </div>
+                  )}
+
+                  <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-100">
+                     <p className="text-sm font-bold text-slate-700 flex items-center gap-2">
+                        <ShieldCheck className="w-5 h-5 text-rose-600" />
+                        Take the step today
                      </p>
                      <Link to="/auth/register" className="w-full sm:w-auto">
                         <Button className="w-full sm:w-auto bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl h-12 px-6 shadow-md shadow-rose-200">
