@@ -60,18 +60,20 @@ const Register = () => {
       <div className="min-h-[92vh] py-12 px-4 flex items-center justify-center bg-gradient-to-b from-rose-50/50 via-white to-slate-50/50 relative overflow-hidden">
          {/* Atmospheric subtle glow */}
          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-rose-200/40 rounded-full blur-[140px] pointer-events-none" />
+         <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-red-100/50 rounded-full blur-[120px] pointer-events-none" />
 
-         <div className="w-full max-w-2xl relative z-10">
+         <div className="w-full max-w-3xl relative z-10">
             <motion.div
                initial={{ opacity: 0, y: 20 }}
                animate={{ opacity: 1, y: 0 }}
                transition={{ duration: 0.5 }}
             >
-               <Card className="bg-white/95 backdrop-blur-xl border border-slate-100 shadow-2xl shadow-rose-900/10 rounded-[2.5rem] p-8 sm:p-12">
+               <Card className="bg-white/95 backdrop-blur-xl border border-slate-100 shadow-2xl shadow-rose-900/10 rounded-[2.5rem] p-8 sm:p-12 relative overflow-hidden">
+                  <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-rose-500 via-red-500 to-rose-600" />
                   {/* Brand Header */}
                   <div className="text-center space-y-3 mb-8">
                      <NavLink to="/" className="inline-flex items-center gap-2.5 mx-auto">
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-rose-600 to-red-500 text-white flex items-center justify-center shadow-lg shadow-rose-200">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-rose-600 to-red-500 text-white flex items-center justify-center shadow-lg shadow-rose-200 hover:scale-110 hover:-rotate-6 transition-transform duration-300">
                            <Heart className="w-6 h-6 fill-white" />
                         </div>
                      </NavLink>
