@@ -32,8 +32,11 @@ const DonorCard = ({ donor }) => {
          className="h-full"
       >
          <Card
-            className="group relative h-full w-full bg-white overflow-hidden flex flex-col border border-slate-100 shadow-sm transition-all duration-500 hover:shadow-2xl hover:shadow-rose-100/30 rounded-[2.5rem]"
+            className="group relative h-full w-full bg-white overflow-hidden flex flex-col border border-slate-100 shadow-sm transition-all duration-500 hover:shadow-2xl hover:shadow-rose-100/30 hover:border-rose-100 rounded-[2.5rem]"
          >
+            {/* Top accent strip */}
+            <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-rose-50/80 to-transparent pointer-events-none" />
+            <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-rose-400 via-red-500 to-rose-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             {/* 1. Header: Status & Blood Group */}
             <div className="absolute top-6 left-6 right-6 z-20 flex justify-between items-center">
                <div className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border flex items-center gap-1.5 ${
@@ -55,8 +58,8 @@ const DonorCard = ({ donor }) => {
                {/* 2. Compact Avatar */}
                <div className="relative mt-12 mb-6">
                   <div className="absolute -inset-3 bg-gradient-to-tr from-rose-100 to-rose-50 rounded-full opacity-40 blur-xl group-hover:opacity-60 transition-opacity" />
-                  <div className="relative w-24 h-24 rounded-full p-1 bg-white shadow-lg ring-1 ring-slate-100">
-                     <div className="w-full h-full rounded-full overflow-hidden bg-slate-50 flex items-center justify-center">
+                  <div className="relative w-24 h-24 rounded-full p-[3px] bg-gradient-to-tr from-rose-500 via-red-400 to-amber-300 shadow-lg shadow-rose-100">
+                     <div className="w-full h-full rounded-full overflow-hidden bg-slate-50 ring-2 ring-white flex items-center justify-center">
                         {donor?.profile_image ? (
                            <img
                               src={donor?.profile_image}
@@ -102,7 +105,7 @@ const DonorCard = ({ donor }) => {
                            </div>
                            <div className="flex flex-col items-start text-left">
                               <span className="text-[9px] font-black uppercase text-slate-400 tracking-tighter leading-none mb-1">Phone Number</span>
-                              <span className="text-sm font-bold text-slate-700 group-hover/phone:text-rose-600 transition-colors tracking-tight italic">
+                              <span className="text-sm font-bold text-slate-700 group-hover/phone:text-rose-600 transition-colors tracking-wide tabular-nums">
                                  {donor?.phone || "N/A"}
                               </span>
                            </div>
