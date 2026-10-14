@@ -1,4 +1,4 @@
-import { Users, User, Calendar, } from "lucide-react"
+import { LayoutDashboard, Users, CalendarCheck, UserCog } from "lucide-react"
 
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar"
 
@@ -11,9 +11,8 @@ const data = {
       {
          title: "Overview",
          url: "/dashboard",
-         icon: User,
+         icon: LayoutDashboard,
       },
-
       {
          title: "Blood Donors",
          url: "/dashboard/find-donors",
@@ -30,33 +29,32 @@ const data = {
          ]
       },
       {
-         title: "Donation Request",
+         title: "Donation Requests",
          url: "/dashboard/donation_request",
-         icon: Calendar,
+         icon: CalendarCheck,
       },
-
       {
          title: "Profile Settings",
          url: "/dashboard/profile",
-         icon: User,
+         icon: UserCog,
       },
-
    ],
 }
 
 export function AppSidebar({ ...props }) {
    return (
-      <Sidebar collapsible="icon" variant="floating" className={""} {...props}>
-         <SidebarHeader>
+      <Sidebar collapsible="icon" variant="floating" className="border-r border-slate-200/80 bg-white" {...props}>
+         <SidebarHeader className="border-b border-slate-100/80 pb-3">
             <ProjectLogo />
          </SidebarHeader>
-         <SidebarContent>
+         <SidebarContent className="py-2">
             <NavMain items={data.navMain} />
          </SidebarContent>
-         <SidebarFooter>
+         <SidebarFooter className="border-t border-slate-100/80 pt-2">
             <NavUser />
          </SidebarFooter>
          <SidebarRail />
       </Sidebar>
    )
 }
+

@@ -29,59 +29,36 @@ export function NavMain({ items }) {
    // MAIN NAV ITEM
    const getMenuButtonStyles = (isActive) => {
       return cn(
-         "group/button relative transition-all duration-300 ease-out transform py-4 cursor-pointer",
-         "hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/20",
-         "hover:bg-gradient-to-r hover:from-primary/10 hover:to-primary/20",
-         "hover:text-primary hover:backdrop-blur-sm",
-         "focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:outline-none",
-         "rounded-[8px] border border-transparent hover:border-primary/30",
-
-         isActive && [
-            "bg-gradient-to-r from-primary via-primary to-primary text-white font-semibold",
-            "shadow-lg  hover:bg-gradient-to-r hover:from-primary hover:to-primary hover:text-white shadow-primary/30 border-primary/30 scale-[1.02]",
-            "before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-8 before:w-1 before:bg-primary",
-         ]
+         "group/button relative flex items-center gap-3 w-full px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 cursor-pointer outline-none",
+         isActive
+            ? "bg-gradient-to-r from-rose-600 to-rose-500 text-white font-semibold shadow-md shadow-rose-500/25"
+            : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/90 active:scale-[0.99]"
       );
    };
 
    // SUBMENU TRIGGER ITEM
    const subMenuTrigger = (isActive) => {
       return cn(
-         "group/button relative transition-all duration-300 ease-out transform py-4 cursor-pointer",
-         "hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/20",
-         "hover:bg-gradient-to-r hover:from-primary/10 hover:to-primary/20",
-         "hover:text-primary hover:backdrop-blur-sm",
-         "focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:outline-none",
-         "rounded-[8px] border border-transparent hover:border-primary/30",
-
-         isActive && [
-            "shadow-lg shadow-primary/30 border-primary/30 scale-[1.02]",
-            "before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-8 before:w-1 before:bg-primary",
-         ]
+         "group/button relative flex items-center justify-between w-full px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 cursor-pointer outline-none",
+         isActive
+            ? "bg-rose-50/80 text-rose-700 font-semibold"
+            : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/90 active:scale-[0.99]"
       );
    };
 
    // SUBMENU BUTTON
    const getSubMenuButtonStyles = (isActive) => {
       return cn(
-         "block w-full rounded-[8px] cursor-pointer px-4 py-3 text-sm font-medium transition-all duration-300 ease-out",
-         "hover:bg-gradient-to-r hover:from-primary/10 hover:to-primary/20 hover:text-primary",
-         "hover:shadow-md hover:shadow-primary/10 hover:translate-x-1",
-         "focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:outline-none",
-         "border border-transparent hover:border-primary/20 relative overflow-hidden",
-
-         isActive && [
-            "bg-gradient-to-r from-primary to-primary text-white font-semibold shadow-md shadow-primary/25",
-            "hover:from-primary hover:text-white hover:to-primary/80 hover:shadow-lg hover:shadow-primary/35",
-            "before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/10 before:to-transparent",
-            "before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-700",
-         ]
+         "flex items-center gap-2 w-full rounded-lg px-3 py-2 text-xs font-medium transition-all duration-200 cursor-pointer",
+         isActive
+            ? "bg-rose-500/10 text-rose-600 font-semibold border-l-2 border-rose-500 pl-2.5"
+            : "text-slate-500 hover:text-slate-900 hover:bg-slate-100/70"
       );
    };
 
    return (
-      <SidebarGroup>
-         <SidebarMenu className="space-y-2">
+      <SidebarGroup className="px-2">
+         <SidebarMenu className="space-y-1.5">
             {items.map((item) => {
                const isActive = isItemActive(item);
                const hasSubItems = item.items && item.items.length > 0;
@@ -92,19 +69,24 @@ export function NavMain({ items }) {
                         <CollapsibleTrigger asChild>
                            {hasSubItems ? (
                               <SidebarMenuButton tooltip={item.title} className={subMenuTrigger(isActive)}>
-                                 {item.icon && (
-                                    <item.icon className="h-5 w-5 shrink-0 transition-all duration-300 group-hover/button:scale-110" />
-                                 )}
-                                 <span className="truncate font-medium">{item.title}</span>
-                                 <ChevronRight className="ml-auto h-4 w-4 shrink-0 transition-all duration-300 group-data-[state=open]/collapsible:rotate-90 group-hover/button:scale-110" />
+                                 <div className="flex items-center gap-3">
+                                    {item.icon && (
+                                       <item.icon className={cn(
+                                          "h-4 w-4 shrink-0 transition-transform duration-200 group-hover/button:scale-110",
+                                          isActive ? "text-rose-600" : "text-slate-500"
+                                       )} />
+                                    )}
+                                    <span className="truncate">{item.title}</span>
+                                 </div>
+                                 <ChevronRight className="ml-auto h-4 w-4 shrink-0 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 text-slate-400" />
                               </SidebarMenuButton>
                            ) : (
                               <NavLink to={item.url} className="block">
                                  <SidebarMenuButton tooltip={item.title} className={getMenuButtonStyles(isActive)}>
                                     {item.icon && (
-                                       <item.icon className="h-5 w-5 shrink-0 transition-all duration-300 group-hover/button:scale-110" />
+                                       <item.icon className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover/button:scale-110" />
                                     )}
-                                    <span className="truncate font-medium">{item.title}</span>
+                                    <span className="truncate">{item.title}</span>
                                  </SidebarMenuButton>
                               </NavLink>
                            )}
@@ -112,16 +94,14 @@ export function NavMain({ items }) {
 
                         {hasSubItems && (
                            <CollapsibleContent className="overflow-hidden w-full data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
-                              <SidebarMenuSub className="space-y-1 mt-2 border-l-2 border-primary/30 px-4 w-full relative">
-                                 {/* <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-primary/40 rounded-full" /> */}
-
+                              <SidebarMenuSub className="space-y-1 mt-1 ml-4 pl-3 border-l border-slate-200">
                                  {item.items.map((subItem) => {
                                     const subItemActive = isSubItemActive(subItem.url);
                                     return (
                                        <SidebarMenuSubItem key={subItem.title}>
                                           <SidebarMenuSubButton asChild>
                                              <NavLink to={subItem.url} className={getSubMenuButtonStyles(subItemActive)}>
-                                                <span className="truncate relative z-10">{subItem.title}</span>
+                                                <span className="truncate">{subItem.title}</span>
                                              </NavLink>
                                           </SidebarMenuSubButton>
                                        </SidebarMenuSubItem>
@@ -138,3 +118,4 @@ export function NavMain({ items }) {
       </SidebarGroup>
    );
 }
+
